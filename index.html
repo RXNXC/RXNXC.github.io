@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Analyst Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#top" class="nav-logo">Adewale<span class="accent"> </span>David Akinwale<span class="cursor">|</span></a>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="#about"><span class="line-no">|</span> about</a></li>
+      <li><a href="#projects"><span class="line-no">|</span> projects</a></li>
+      <li><a href="#skills"><span class="line-no">|</span> skills</a></li>
+      <li><a href="#contact"><span class="line-no">|</span> contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<header class="hero" id="top">
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <p class="hero-eyebrow">
+      <span class="dot"></span> SELECT * FROM analysts WHERE focus = 'insight'
+    </p>
+    <h1 class="hero-title">
+      I turn raw data<br>
+      into <span class="accent">decisions</span>.
+    </h1>
+    <p class="hero-sub">
+      Data Analyst specializing in Excel, PowerBi,SQL and Python, and turning messy datasets
+      into clear, actionable stories &mdash; for teams who need answers, not just numbers.
+    </p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+    </div>
+  </div>
+  <div class="hero-panel">
+    <div class="panel-header">
+      <span class="panel-dot red"></span>
+      <span class="panel-dot yellow"></span>
+      <span class="panel-dot green"></span>
+      <span class="panel-title">query.sql</span>
+    </div>
+    <pre class="panel-code"><code><span class="kw">SELECT</span>
+  region,
+  <span class="fn">ROUND</span>(<span class="fn">SUM</span>(revenue), 2) <span class="kw">AS</span> total_revenue,
+  <span class="fn">COUNT</span>(<span class="kw">DISTINCT</span> customer_id) <span class="kw">AS</span> customers
+<span class="kw">FROM</span> sales
+<span class="kw">WHERE</span> order_date >= <span class="str">'2026-01-01'</span>
+<span class="kw">GROUP BY</span> region
+<span class="kw">ORDER BY</span> total_revenue <span class="kw">DESC</span>;
+
+<span class="comment">-- 4 rows returned in 0.014s</span></code></pre>
+  </div>
+</header>
+
+<main>
+
+<!-- ===== ABOUT ===== -->
+<section class="section" id="about">
+  <div class="section-inner">
+    <p class="section-label"><span class="line-no">|</span> about</p>
+    <div class="about-grid">
+      <div class="about-text">
+        <h2>Background</h2>
+        <p>
+          I'm a data analyst who enjoys the moment a messy spreadsheet turns into
+          a clear answer. My toolkit centers on Microsoft Excel, PowerBi, SQL for digging through data,
+          Python for cleaning and modeling it, and dashboards for putting it in
+          front of people who need to act on it.
+        </p>
+        <p>
+          I care most about the questions behind the numbers, why a metric
+          moved, what it means for the business, and how to communicate that
+          without burying anyone in jargon.
+        </p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-card">
+          <span class="stat-value">3+</span>
+          <span class="stat-label">years working with data</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value">3+</span>
+          <span class="stat-label">dashboards &amp; projects done</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value">SQL</span>
+          <span class="stat-label">primary query language</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value">Py</span>
+          <span class="stat-label">analysis &amp; automation</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROJECTS ===== -->
+<section class="section section-alt" id="projects">
+  <div class="section-inner">
+    <p class="section-label"><span class="line-no">|</span> projects</p>
+    <h2 class="section-heading">Selected work</h2>
+
+    <div class="projects-grid">
+
+      <article class="project-card">
+        <div class="project-head">
+          <span class="project-tag">SQL &middot; Dashboard</span>
+        </div>
+        <h3>Sales Performance Dashboard</h3>
+        <p>
+          Built an interactive dashboard tracking revenue, churn, and regional
+          performance across 12 months of sales data, replacing a manual weekly
+          spreadsheet report.
+        </p>
+        <ul class="project-meta">
+          <li>PostgreSQL</li>
+          <li>Tableau</li>
+          <li>Python</li>
+        </ul>
+        <a href="#" class="project-link">View case study &rarr;</a>
+      </article>
+
+      <article class="project-card">
+        <div class="project-head">
+          <span class="project-tag">Python &middot; EDA</span>
+        </div>
+        <h3>Customer Churn Analysis</h3>
+        <p>
+          Explored behavioral and transactional data to identify the top
+          predictors of churn, surfacing three actionable retention levers
+          for the customer success team.
+        </p>
+        <ul class="project-meta">
+          <li>Pandas</li>
+          <li>Matplotlib</li>
+          <li>scikit-learn</li>
+        </ul>
+        <a href="#" class="project-link">View case study &rarr;</a>
+      </article>
+
+      <article class="project-card">
+        <div class="project-head">
+          <span class="project-tag">SQL &middot; ETL</span>
+        </div>
+        <h3>Marketing Spend &amp; ROI Pipeline</h3>
+        <p>
+          Designed a lightweight ETL process to consolidate ad spend across
+          platforms into a single source of truth, cutting reporting time
+          from two days to two hours.
+        </p>
+        <ul class="project-meta">
+          <li>MySQL</li>
+          <li>Google Sheets API</li>
+          <li>Looker Studio</li>
+        </ul>
+        <a href="#" class="project-link">View case study &rarr;</a>
+      </article>
+
+      <article class="project-card">
+        <div class="project-head">
+          <span class="project-tag">SQL &middot; Forecasting</span>
+        </div>
+        <h3>Inventory Demand Forecast</h3>
+        <p>
+          Analyzed two years of sales history to build a simple demand
+          forecasting model, reducing stockouts on top SKUs by an estimated 18%.
+        </p>
+        <ul class="project-meta">
+          <li>SQL</li>
+          <li>Python</li>
+          <li>Excel</li>
+        </ul>
+        <a href="#" class="project-link">View case study &rarr;</a>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== SKILLS ===== -->
+<section class="section" id="skills">
+  <div class="section-inner">
+    <p class="section-label"><span class="line-no">|</span> skills</p>
+    <h2 class="section-heading">Toolkit</h2>
+
+    <div class="skills-grid">
+      <div class="skill-group">
+        <h3>Querying &amp; Databases</h3>
+        <div class="tag-row">
+          <span class="tag">SQL</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">MySQL</span>
+          <span class="tag">BigQuery</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Analysis &amp; Scripting</h3>
+        <div class="tag-row">
+          <span class="tag">Python</span>
+          <span class="tag">Pandas</span>
+          <span class="tag">NumPy</span>
+          <span class="tag">Jupyter</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Visualization &amp; BI</h3>
+        <div class="tag-row">
+          <span class="tag">Power BI</span>
+          <span class="tag">Excel</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Workflow</h3>
+        <div class="tag-row">
+          <span class="tag">Git</span>
+          <span class="tag">A/B Testing</span>
+          <span class="tag">Statistics</span>
+          <span class="tag">ETL</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section class="section section-alt" id="contact">
+  <div class="section-inner contact-inner">
+    <p class="section-label"><span class="line-no">|</span> contact</p>
+    <h2 class="section-heading">Let's talk data.</h2>
+    <p class="contact-sub">
+      Have a dataset that needs untangling, or a role you think I'd be a fit for?
+      I'd love to hear from you.
+    </p>
+    <div class="contact-links">
+      <a href="mailto:hello@example.com" class="contact-link">
+        <span class="contact-label">email</span>
+        <span class="contact-value">adewaledave4@gmail.com</span>
+      </a>
+      <a href="#" class="contact-link">
+        <span class="contact-label">linkedin</span>
+        <span class="contact-value">www.linkedin.com/in/adewale-akinwale-0a4b1525a</span>
+      </a>
+      <a href="#" class="contact-link">
+        <span class="contact-label">github</span>
+        <span class="contact-value">github.com/RXNXC</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="section-inner footer-inner">
+    <span>&copy; 2026 Jane Doe</span>
+    <span class="footer-meta">Built with HTML, CSS &amp; vanilla JS</span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
