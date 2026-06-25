@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Regional Sales Analysis — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="regional-sales-analysis.css">
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">jane<span class="accent">_</span>doe<span class="cursor">|</span></a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="../index.html#about"><span class="line-no">01</span> about</a></li>
+        <li><a href="../index.html#projects"><span class="line-no">02</span> projects</a></li>
+        <li><a href="../index.html#skills"><span class="line-no">03</span> skills</a></li>
+        <li><a href="../index.html#contact"><span class="line-no">04</span> contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="project-hero">
+    <a href="../index.html#projects" class="back-link">← Back to projects</a>
+    <span class="project-hero-tag">Excel &middot; Data Analysis &middot; Pivot Tables &middot; Formula-Driven</span>
+    <h1>Regional Sales<br>Analysis</h1>
+    <p class="project-hero-sub">
+      A formula-driven analytical deep-dive into 1,500 sales orders across 5 regions, 6 salespersons,
+      4 promotions, and multiple product categories — built entirely in Excel to surface revenue patterns,
+      promotion effectiveness, delivery performance, and return drivers.
+    </p>
+    <div class="project-meta-bar">
+      <div class="meta-item">
+        <span class="meta-key">Records</span>
+        <span class="meta-val">1,500 orders</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-key">Fields</span>
+        <span class="meta-val">19 columns</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-key">Regions</span>
+        <span class="meta-val">East, West, North, South, Central</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-key">Total Revenue</span>
+        <span class="meta-val">$4,379,992</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-key">Salespersons</span>
+        <span class="meta-val">6 reps</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-key">Promotions</span>
+        <span class="meta-val">FREESHIP, SAVE10, WINTER15, None</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- DASHBOARD PREVIEW -->
+  <section class="dashboard-preview-section">
+    <div class="section-inner">
+      <p class="section-label-sm">// dashboard output</p>
+      <div class="dashboard-preview-wrap">
+        <div class="dashboard-preview-header">
+          <span class="panel-dot red"></span>
+          <span class="panel-dot yellow"></span>
+          <span class="panel-dot green"></span>
+          <span class="preview-title">Regional_Sales_Dashboard.xlsx</span>
+        </div>
+        <div class="dashboard-img-wrap">
+          <img
+            src="assets/regional-sales-dashboard.jpg"
+            alt="Regional Sales Analysis Dashboard — Excel charts showing revenue by region, salesperson performance, promotion effectiveness, and delivery delay rates"
+            class="dashboard-img"
+            loading="lazy"
+          >
+          <div class="dashboard-img-fade"></div>
+        </div>
+        <div class="dashboard-preview-footer">
+          <span class="preview-caption">Excel Dashboard &nbsp;·&nbsp; Pivot Charts &nbsp;·&nbsp; 1,500 rows &nbsp;·&nbsp; 4 analytical views</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="project-body">
+
+    <!-- 01. TOOLS USED -->
+    <section class="proj-section">
+      <p class="proj-section-label"><span class="line-no">01</span> tools used</p>
+      <h2>Toolkit</h2>
+      <p>All analysis, cleaning, aggregation, and visualization was performed entirely within Microsoft Excel — a deliberate constraint to demonstrate proficiency with native Excel capabilities and produce a fully shareable, self-contained workbook.</p>
+      <div class="tool-chips">
+        <div class="tool-chip"><span class="tool-chip-name">Excel</span><span class="tool-chip-role">Primary environment</span></div>
+        <div class="tool-chip"><span class="tool-chip-name">SUMIF / SUMIFS</span><span class="tool-chip-role">Conditional revenue aggregation</span></div>
+        <div class="tool-chip"><span class="tool-chip-name">COUNTIF / COUNTIFS</span><span class="tool-chip-role">Order &amp; return counting</span></div>
+        <div class="tool-chip"><span class="tool-chip-name">AVERAGEIF</span><span class="tool-chip-role">Per-group averages</span></div>
+        <div class="tool-chip"><span class="tool-chip-name">MAXIFS / RANK</span><span class="tool-chip-role">Outlier detection &amp; ranking</span></div>
+        <div class="tool-chip"><span class="tool-chip-name">Pivot Tables</span><span class="tool-chip-role">Cross-dimensional summaries</span></div>
+        <div class="tool-chip"><span class="tool-chip-name">Pivot Charts</span><span class="tool-chip-role">Visual dashboards</span></div>
+        <div class="tool-chip"><span class="tool-chip-name">Conditional Formatting</span><span class="tool-chip-role">Heatmaps &amp; highlights</span></div>
+      </div>
+    </section>
+
+    <!-- 02. QUESTIONS -->
+    <section class="proj-section">
+      <p class="proj-section-label"><span class="line-no">02</span> analytical questions</p>
+      <h2>Questions to Be Answered</h2>
+      <p>Four analytical questions were defined upfront to give the analysis clear direction. Each maps to a specific business concern — revenue performance, salesforce quality, promotion efficiency, or operational logistics.</p>
+      <div class="question-block"><div class="question-head"><span class="q-num">Q1</span><p>Which region generates the highest total revenue, and how does customer type (Retail vs. Wholesale) influence that breakdown?</p></div></div>
+      <div class="question-block"><div class="question-head"><span class="q-num">Q2</span><p>Which salesperson has the highest sales volume and the lowest return rate?</p></div></div>
+      <div class="question-block"><div class="question-head"><span class="q-num">Q3</span><p>Do promotions actually increase order value, or do discounts just erode revenue?</p></div></div>
+      <div class="question-block" style="margin-bottom:0"><div class="question-head"><span class="q-num">Q4</span><p>What is the average delivery time by region, and which region has the most delayed orders?</p></div></div>
+    </section>
+
+    <!-- 03. DATA CLEANING -->
+    <section class="proj-section">
+      <p class="proj-section-label"><span class="line-no">03</span> data cleaning</p>
+      <h2>Data Cleaning Process</h2>
+      <p>The raw dataset arrived as a single sheet with 1,500 rows and 19 columns. The following steps were applied before any analysis to ensure accuracy and consistency across all formula outputs and pivot summaries.</p>
+      <div class="cleaning-steps">
+        <div class="cleaning-step">
+          <span class="step-num">01</span>
+          <div class="step-content">
+            <strong>Date column conversion</strong>
+            <span>The Date, OrderDate, and DeliveryDate columns were stored as Excel serial numbers (e.g. 44980). Converted to readable date format via Format Cells → Date and cross-verified against the DeliveryDays column to confirm internal consistency before any date subtraction was performed.</span>
+          </div>
+        </div>
+        <div class="cleaning-step">
+          <span class="step-num">02</span>
+          <div class="step-content">
+            <strong>TotalPrice formula audit</strong>
+            <span>TotalPrice was verified against the formula: <code class="inline-code">Quantity × UnitPrice × (1 − Discount)</code>. Floating point artifacts (e.g. trailing decimals like 2290.4000000001) were identified as rounding byproducts and left intact — pivot aggregations handle them correctly.</span>
+          </div>
+        </div>
+        <div class="cleaning-step">
+          <span class="step-num">03</span>
+          <div class="step-content">
+            <strong>Binary column check (Returned, Discount)</strong>
+            <span>The Returned column was confirmed to contain only 0 and 1 values — no nulls or unexpected entries. Discount values ranged from 0 to 0.15 (0%–15%) with no anomalies. Both columns were clean and ready for COUNTIFS and AVERAGEIF use.</span>
+          </div>
+        </div>
+        <div class="cleaning-step">
+          <span class="step-num">04</span>
+          <div class="step-content">
+            <strong>Categorical field standardization</strong>
+            <span>Region, Product, CustomerType, PaymentMethod, Promotion, DeliveryStatus, and StoreLocation were inspected for typos or inconsistent casing using COUNTIF and Filter. All values were consistent — no corrections required.</span>
+          </div>
+        </div>
+        <div class="cleaning-step">
+          <span class="step-num">05</span>
+          <div class="step-content">
+            <strong>Duplicate OrderID check</strong>
+            <span>OrderIDs (REG100000 onwards) were checked for duplicates using COUNTIF. No duplicates were found across all 1,500 rows.</span>
+          </div>
+        </div>
+        <div class="cleaning-step">
+          <span class="step-num">06</span>
+          <div class="step-content">
+            <strong>Null / blank cell scan</strong>
+            <span>Full dataset scanned using Go To Special → Blanks. One trailing unnamed blank column was identified and deleted. No missing values were found in any analytical column.</span>
+          </div>
+        </div>
+        <div class="cleaning-step">
+          <span class="step-num">07</span>
+          <div class="step-content">
+            <strong>Derived column: Delivery Days</strong>
+            <span>A new Delivery Days column was created as <code class="inline-code">=DeliveryDate − OrderDate</code>, then formatted as Number (not Date). Without this step, Excel renders the difference as a date serial (e.g. day 7 appears as '07/01/1900') instead of the integer 7. This derived column is the analytical foundation for all Q4 calculations.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04. METRICS -->
+    <section class="proj-section">
+      <p class="proj-section-label"><span class="line-no">04</span> metrics &amp; rationale</p>
+      <h2>Metrics Used Per Question &amp; Why</h2>
+
+      <!-- Q1 -->
+      <div class="question-block" style="margin-bottom:32px;">
+        <div class="question-head"><span class="q-num">Q1</span><p>Revenue by Region &amp; Customer Type</p></div>
+        <div class="question-body">
+          <p class="q-sub-heading">Total Revenue per Region</p>
+          <div class="formula-block">
+            <code>=SUMIF(Region_Column, RegionName, TotalPrice_Column)</code>
+            <p class="formula-note">Sums TotalPrice for every row where Region matches the target. SUMIF is dynamic — if the source data changes, the summary auto-updates. Manual subtotals would break on any data refresh.</p>
+            <p class="formula-note">TotalPrice is used over Quantity or UnitPrice because it already accounts for quantity ordered and discounts applied, making it the true realized revenue figure — not just units moved or list price.</p>
+          </div>
+          <p class="q-sub-heading">Revenue Split by Customer Type</p>
+          <div class="formula-block">
+            <code>=SUMIFS(TotalPrice_Column, Region_Column, RegionName, CustomerType_Column, "Retail")</code>
+            <p class="formula-note">SUMIFS extends SUMIF with multiple conditions — here matching Region AND CustomerType simultaneously. Retail and Wholesale have fundamentally different purchasing behaviour: Wholesale is typically higher volume per order, Retail higher frequency. Aggregating them together hides which segment drives regional performance.</p>
+            <p class="formula-note">This dual breakdown answers a strategic question: is North strong because of retail footfall, wholesale contracts, or both?</p>
+          </div>
+          <p class="q-sub-heading">% of Grand Total</p>
+          <div class="formula-block">
+            <code>=Region Total Revenue / Grand Total Revenue</code>
+            <p class="formula-note">A percentage share communicates relative weight more actionably than a raw figure: knowing North contributes 22.1% is more useful than knowing it generated $967,958. It also guards against misleading comparisons when regions have different order volumes.</p>
+          </div>
+          <hr class="q-divider">
+          <p class="q-sub-heading">Visualisation choice</p>
+          <div class="viz-block">
+            <span class="viz-icon">chart</span>
+            <p><strong class="strong-text">Clustered Bar Chart</strong> — shows absolute revenue values (not just proportions), places Retail and Wholesale side-by-side per region in one view, and horizontal bars are easier to read with region labels on the Y-axis than vertical bars with rotated text.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="question-block" style="margin-bottom:32px;">
+        <div class="question-head"><span class="q-num">Q2</span><p>Salesperson Sales Volume &amp; Return Rate</p></div>
+        <div class="question-body">
+          <p class="q-sub-heading">Total Revenue per Salesperson</p>
+          <div class="formula-block">
+            <code>=SUMIF(Salesperson_Column, SalespersonName, TotalPrice_Column)</code>
+            <p class="formula-note">Revenue captures both order frequency and order size simultaneously. A rep making many small sales looks different from one making few large ones — TotalPrice reflects the net business impact of both.</p>
+          </div>
+          <p class="q-sub-heading">Total Orders per Salesperson</p>
+          <div class="formula-block">
+            <code>=COUNTIF(Salesperson_Column, SalespersonName)</code>
+            <p class="formula-note">Order count reveals workload and activity level, contextualising the revenue figure. It also serves as the denominator for Return Rate — without it, the rate cannot be calculated.</p>
+          </div>
+          <p class="q-sub-heading">Returned Orders per Salesperson</p>
+          <div class="formula-block">
+            <code>=COUNTIFS(Salesperson_Column, SalespersonName, Returned_Column, 1)</code>
+            <p class="formula-note">COUNTIFS counts rows where BOTH conditions are true: the row belongs to the salesperson AND Returned = 1. Returns are not evenly distributed — some reps may be selling to mismatched segments, overselling, or serving regions with specific product issues. Attribution to the individual reveals accountability.</p>
+          </div>
+          <p class="q-sub-heading">Return Rate</p>
+          <div class="formula-block">
+            <code>=Returned Orders / Total Orders</code>
+            <p class="formula-note">Normalises across reps with different order volumes. A rep with 64 returns from 243 orders (26.3%) is performing worse than one with 64 returns from 259 orders (24.7%), even though the raw counts are identical. Without normalisation, higher-volume reps always appear to have "more" returns.</p>
+          </div>
+          <p class="q-sub-heading">Revenue &amp; Return Rate Rank</p>
+          <div class="formula-block">
+            <code>=RANK(Revenue, Revenue_Range, 0)  // descending: rank 1 = highest revenue</code>
+            <code>=RANK(ReturnRate, ReturnRate_Range, 1)  // ascending: rank 1 = lowest return rate</code>
+            <p class="formula-note">Ranks convert both metrics to a common 1-to-6 ordinal scale, making the dual comparison instant across two completely different scales. The ascending sort for Return Rate is deliberate — a lower rate is better, so rank 1 must go to the smallest value.</p>
+          </div>
+          <hr class="q-divider">
+          <p class="q-sub-heading">Visualisation choice</p>
+          <div class="viz-block">
+            <span class="viz-icon">chart</span>
+            <p><strong class="strong-text">Combo Chart (Column + Line)</strong> — Revenue and return rate cannot share the same Y-axis (different scales: hundreds of thousands vs. a decimal percentage). A combo chart uses a primary axis for revenue columns and a secondary axis for the return rate line, keeping both visible without distorting either metric.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="question-block" style="margin-bottom:32px;">
+        <div class="question-head"><span class="q-num">Q3</span><p>Promotion Effectiveness</p></div>
+        <div class="question-body">
+          <p class="q-sub-heading">Order Count per Promotion</p>
+          <div class="formula-block">
+            <code>=COUNTIF(Promotion_Column, PromoName)</code>
+            <p class="formula-note">A promotion running on 10 orders cannot be meaningfully compared to one running on 400 using total revenue alone. Order count is the denominator for average calculations and a signal of uptake.</p>
+          </div>
+          <p class="q-sub-heading">Average Order Value (AOV)</p>
+          <div class="formula-block">
+            <code>=AVERAGEIF(Promotion_Column, PromoName, TotalPrice_Column)</code>
+            <p class="formula-note">The single most important metric for this question. Total revenue could be high simply because a promotion ran on more orders — not because it drove higher spending. AOV isolates the per-transaction effect: did customers who used FREESHIP actually spend more per order? AVERAGEIF handles this in one formula with less room for range mismatch errors than SUM/COUNT.</p>
+          </div>
+          <p class="q-sub-heading">Average Discount Rate</p>
+          <div class="formula-block">
+            <code>=AVERAGEIF(Promotion_Column, PromoName, Discount_Column)</code>
+            <p class="formula-note">The cost side of the equation. A promotion that drives higher AOV but also carries a high average discount may produce less net revenue per order than it appears. Without this metric, the analysis only sees the revenue effect — not what was given away to achieve it.</p>
+          </div>
+          <p class="q-sub-heading">Average Quantity per Order</p>
+          <div class="formula-block">
+            <code>=AVERAGEIF(Promotion_Column, PromoName, Quantity_Column)</code>
+            <p class="formula-note">A promotion might not raise the price per order but could succeed by driving customers to buy more units. Average quantity distinguishes volume behaviour (more items per basket) from value behaviour (higher spend per item).</p>
+          </div>
+          <p class="q-sub-heading">Revenue Lift vs. No-Promotion Baseline</p>
+          <div class="formula-block">
+            <code>=Promo Avg Order Value − No Promotion Avg Order Value</code>
+            <p class="formula-note">The most direct answer to the business question: is this promotion worth running? Positive lift means the promotion drives spending above what customers would have spent without it. Negative lift means the discount costs more than the incremental revenue it generates.</p>
+          </div>
+          <hr class="q-divider">
+          <p class="q-sub-heading">Visualisation choice</p>
+          <div class="viz-block">
+            <span class="viz-icon">chart</span>
+            <p><strong class="strong-text">Clustered Column Chart</strong> — placi
