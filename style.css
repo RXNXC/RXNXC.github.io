@@ -629,3 +629,39 @@ a { color: inherit; text-decoration: none; }
     grid-template-columns: 1fr 1fr;
   }
 }
+
+/* ── Scroll-reveal (used by project pages) ── */
+.proj-section,
+.insight-card,
+.tool-chip,
+.cleaning-step,
+.question-block {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
+.proj-section.visible,
+.insight-card.visible,
+.tool-chip.visible,
+.cleaning-step.visible,
+.question-block.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Dashboard expand button */
+.dashboard-expand-btn {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--accent);
+  background: none;
+  border: 1px solid var(--accent-dim);
+  border-radius: 6px;
+  padding: 4px 12px;
+  cursor: pointer;
+  margin-bottom: 8px;
+  transition: background 0.15s ease;
+  display: block;
+}
+.dashboard-expand-btn:hover { background: var(--accent-soft); }
