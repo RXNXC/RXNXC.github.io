@@ -1,120 +1,131 @@
 /**
  * regional-sales-analysis.js
- * Page-specific interactions for the Regional Sales Analysis project page.
- * Depends on: ../script.js (mobile nav toggle, scroll-active nav links)
+ * Interactions for the Regional Sales Analysis project page.
+ * Requires: ../script.js (mobile nav, scroll-active links)
  */
 
 (function () {
   'use strict';
 
-  /* ── Scroll-reveal for sections ──────────────────────────────────────────
-     Adds the class .visible to .proj-section and .insight-card elements
-     as they enter the viewport, triggering a CSS fade-up transition.
-  ──────────────────────────────────────────────────────────────────────── */
-  function initScrollReveal () {
-    var targets = document.querySelectorAll(
-      '.proj-section, .insight-card, .tool-chip, .cleaning-step, .question-block'
-    );
+  /* ── 1. Scroll-reveal ──────────────────────────────────────────
+     Fades sections and cards in as they enter the viewport.
+     Key fix vs. previous version: elements are VISIBLE by default
+     (no opacity:0 in CSS). JS adds the animation class only when
+     IntersectionObserver is supported, so the page always shows
+     content even if JS fails or is slow.
+  ──────────────────────────────────────────────────────────────── */
+  function initScrollReveal() {
+    if (!('IntersectionObserver' in window)) return;
 
-    if (!('IntersectionObserver' in window)) {
-      // Fallback: just make everything visible immediately
-      targets.forEach(function (el) { el.classList.add('visible'); });
-      return;
-    }
+    var selectors = [
+      '.proj-section',
+      '.gallery-card',
+      '.insight-card',
+      '.tool-chip',
+      '.cleaning-step'
+    ];
+
+    // Add base animation class so CSS can target them
+    var targets = document.querySelectorAll(selectors.join(','));
+    targets.forEach(function (el) {
+      el.classList.add('sr-ready');
+    });
 
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target); // fire once only
+          entry.target.classList.add('sr-visible');
+          observer.unobserve(entry.target);
         }
       });
-    }, { rootMargin: '0px 0px -60px 0px', threshold: 0.05 });
+    }, { rootMargin: '0px 0px -48px 0px', threshold: 0.04 });
 
     targets.forEach(function (el, i) {
-      // Stagger delay for grid children (insight cards, tool chips)
-      var isGridChild =
-        el.classList.contains('insight-card') ||
-        el.classList.contains('tool-chip') ||
-        el.classList.contains('cleaning-step');
-
-      if (isGridChild) {
-        el.style.transitionDelay = (i % 4) * 60 + 'ms';
+      // Stagger grid children slightly
+      var isChild = el.classList.contains('insight-card') ||
+                    el.classList.contains('tool-chip')    ||
+                    el.classList.contains('gallery-card') ||
+                    el.classList.contains('cleaning-step');
+      if (isChild) {
+        el.style.transitionDelay = (i % 4) * 55 + 'ms';
       }
-
       observer.observe(el);
     });
   }
 
-  /* ── Dashboard image expand on click ────────────────────────────────────
-     Clicking the dashboard preview toggles an expanded height so the
-     visitor can scroll through the full image without leaving the page.
-  ──────────────────────────────────────────────────────────────────────── */
-  function initDashboardExpand () {
-    var wrap = document.querySelector('.dashboard-img-wrap');
-    var img  = document.querySelector('.dashboard-img');
-    var fade = document.querySelector('.dashboard-img-fade');
-    var footer = document.querySelector('.dashboard-preview-footer');
+  /* ── 2. Lightbox ───────────────────────────────────────────────
+     Opens a full-screen modal when user clicks a gallery card.
+     Scrollable so tall dashboard images can be fully viewed.
+     Closes on backdrop click, close button, or Escape key.
+  ──────────────────────────────────────────────────────────────── */
+  function initLightbox() {
+    var lightbox  = document.getElementById('lightbox');
+    var lbImg     = document.getElementById('lightbox-img');
+    var lbTitle   = document.getElementById('lightbox-title');
+    var lbClose   = lightbox.querySelector('.lightbox-close');
+    var lbBackdrop = lightbox.querySelector('.lightbox-backdrop');
 
-    if (!wrap || !img) return;
+    if (!lightbox || !lbImg) return;
 
-    var expanded = false;
-
-    // Add a hint label
-    var hint = document.createElement('button');
-    hint.className = 'dashboard-expand-btn';
-    hint.textContent = 'Click to expand';
-    hint.setAttribute('aria-label', 'Expand dashboard preview');
-    footer.insertBefore(hint, footer.firstChild);
-
-    function toggle () {
-      expanded = !expanded;
-      if (expanded) {
-        wrap.style.maxHeight = img.naturalHeight + 'px';
-        fade.style.opacity   = '0';
-        hint.textContent     = 'Click to collapse';
-        hint.setAttribute('aria-label', 'Collapse dashboard preview');
-      } else {
-        wrap.style.maxHeight = '';
-        fade.style.opacity   = '1';
-        hint.textContent     = 'Click to expand';
-        hint.setAttribute('aria-label', 'Expand dashboard preview');
-      }
+    function openLightbox(imgSrc, title) {
+      lbImg.src = imgSrc;
+      lbImg.alt = title;
+      lbTitle.textContent = title;
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      lbClose.focus();
     }
 
-    hint.addEventListener('click', function (e) {
-      e.stopPropagation();
-      toggle();
-    });
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+      lbImg.src = '';
+    }
 
-    wrap.addEventListener('click', toggle);
-    wrap.style.cursor = 'pointer';
-  }
-
-  /* ── Table row highlight on hover ───────────────────────────────────────
-     Highlights the hovered row across .data-table and .formula-summary
-     tables for easier reading, especially on wide tables.
-  ──────────────────────────────────────────────────────────────────────── */
-  function initTableRowHighlight () {
-    var tables = document.querySelectorAll('.data-table tbody, .formula-summary tbody');
-    tables.forEach(function (tbody) {
-      var rows = tbody.querySelectorAll('tr');
-      rows.forEach(function (row) {
-        row.addEventListener('mouseenter', function () {
-          row.style.background = 'rgba(94, 230, 198, 0.04)';
-        });
-        row.addEventListener('mouseleave', function () {
-          row.style.background = '';
-        });
+    // Attach click to every gallery card
+    document.querySelectorAll('.gallery-card').forEach(function (card) {
+      card.addEventListener('click', function () {
+        var img   = card.getAttribute('data-img');
+        var title = card.getAttribute('data-title') || 'Dashboard Preview';
+        openLightbox(img, title);
+      });
+      // Keyboard: Enter or Space opens it
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('role', 'button');
+      card.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          card.click();
+        }
       });
     });
+
+    lbClose.addEventListener('click', closeLightbox);
+    lbBackdrop.addEventListener('click', closeLightbox);
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && lightbox.classList.contains('open')) {
+        closeLightbox();
+      }
+    });
   }
 
-  /* ── Smooth scroll for any in-page anchor links ─────────────────────── */
-  function initSmoothScroll () {
+  /* ── 3. Table row highlight ────────────────────────────────────
+     Subtle row hover highlight on data and formula tables.
+     (CSS :hover handles this now, so this is just a safety net
+      for browsers that need explicit JS assist.)
+  ──────────────────────────────────────────────────────────────── */
+  function initTableHighlight() {
+    // CSS handles hover now via tbody tr:hover — nothing needed here.
+    // Kept as a placeholder for future interactive table features.
+  }
+
+  /* ── 4. Smooth scroll for in-page anchor links ─────────────── */
+  function initSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(function (link) {
       link.addEventListener('click', function (e) {
-        var target = document.querySelector(link.getAttribute('href'));
+        var id = link.getAttribute('href').slice(1);
+        var target = document.getElementById(id);
         if (target) {
           e.preventDefault();
           target.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -123,11 +134,11 @@
     });
   }
 
-  /* ── Boot ────────────────────────────────────────────────────────────── */
+  /* ── Boot ────────────────────────────────────────────────────── */
   document.addEventListener('DOMContentLoaded', function () {
     initScrollReveal();
-    initDashboardExpand();
-    initTableRowHighlight();
+    initLightbox();
+    initTableHighlight();
     initSmoothScroll();
   });
 
