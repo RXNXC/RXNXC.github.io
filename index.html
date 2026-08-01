@@ -1,295 +1,389 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Data Analyst Portfolio</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Analyst Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- ===== NAV ===== -->
-<nav class="nav">
+<!-- NAV -->
+<nav class="nav" id="nav">
   <div class="nav-inner">
-    <a href="#top" class="nav-logo">Adewale<span class="accent"> </span>David Akinwale<span class="cursor">|</span></a>
+    <a href="#top" class="nav-logo">jane<span class="accent">_</span>doe</a>
+    <ul class="nav-links">
+      <li><a href="#about">ABOUT</a></li>
+      <li><a href="#projects">WORKS</a></li>
+      <li><a href="#skills">SKILLS</a></li>
+      <li><a href="#contact">CONTACT</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">LET'S TALK</a>
     <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
-    <ul class="nav-links">
-      <li><a href="#about"><span class="line-no">|</span> About</a></li>
-      <li><a href="#projects"><span class="line-no">|</span> Projects</a></li>
-      <li><a href="#skills"><span class="line-no">|</span> Skills</a></li>
-      <li><a href="#contact"><span class="line-no">|</span> Contact</a></li>
-    </ul>
   </div>
 </nav>
 
-<!-- ===== HERO ===== -->
-<header class="hero" id="top">
-  <div class="hero-grid"></div>
-  <div class="hero-inner">
-    <p class="hero-eyebrow">
-      <span class="dot"></span> SELECT * FROM analysts WHERE focus = 'insight'
-    </p>
-    <h1 class="hero-title">
-      I turn raw data<br>
-      into <span class="accent">decisions</span>.
-    </h1>
-    <p class="hero-sub">
-      Data Analyst specializing in Excel, PowerBi,SQL and Python, and turning messy datasets
-      into clear, actionable stories &mdash; for teams who need answers, not just numbers.
-    </p>
-    <div class="hero-actions">
-      <a href="#projects" class="btn btn-primary">View Projects</a>
-      <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-status">
+    <span class="status-dot"></span>
+    <span class="status-text">AVAILABLE FOR HIRE</span>
+  </div>
+
+  <div class="hero-body">
+    <div class="hero-left">
+      <p class="hero-eyebrow">DATA ANALYST</p>
+      <h1 class="hero-title">
+        I turn raw&nbsp;data<br>into <em>decisions</em>.
+      </h1>
+      <p class="hero-desc">
+        Specializing in SQL, Pivot Tables, and storytelling through data —
+        for teams who need answers, not just numbers.
+      </p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn-primary">VIEW WORKS</a>
+        <a href="#about" class="btn-outline">EXPLORE PROCESS</a>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-vis">
+        <div class="vis-grid"></div>
+        <div class="vis-ring"></div>
+        <svg class="vis-svg" viewBox="0 0 480 420" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Data analytics dashboard illustration">
+          <rect x="24" y="24" width="432" height="372" rx="12" fill="#11161d" stroke="#232a35" stroke-width="1.5"/>
+          <rect x="24" y="24" width="432" height="44" rx="12" fill="#161b22"/>
+          <rect x="24" y="56" width="432" height="12" fill="#161b22"/>
+          <circle cx="50" cy="46" r="6" fill="#ff5f56"/>
+          <circle cx="68" cy="46" r="6" fill="#ffbd2e"/>
+          <circle cx="86" cy="46" r="6" fill="#27c93f"/>
+          <text x="210" y="51" font-family="JetBrains Mono" font-size="11" fill="#5c6470" text-anchor="middle">analytics_dashboard.xlsx</text>
+          <rect x="40" y="84" width="96" height="60" rx="8" fill="#0d1117" stroke="#232a35" stroke-width="1"/>
+          <text x="52" y="103" font-family="JetBrains Mono" font-size="8" fill="#5c6470">TOTAL REVENUE</text>
+          <text x="52" y="125" font-family="JetBrains Mono" font-size="18" font-weight="700" fill="#5ee6c6">$4.38M</text>
+          <rect x="148" y="84" width="96" height="60" rx="8" fill="#0d1117" stroke="#232a35" stroke-width="1"/>
+          <text x="160" y="103" font-family="JetBrains Mono" font-size="8" fill="#5c6470">CHURN RATE</text>
+          <text x="160" y="125" font-family="JetBrains Mono" font-size="18" font-weight="700" fill="#5ee6c6">26.5%</text>
+          <rect x="256" y="84" width="96" height="60" rx="8" fill="#0d1117" stroke="#232a35" stroke-width="1"/>
+          <text x="268" y="103" font-family="JetBrains Mono" font-size="8" fill="#5c6470">ORDERS</text>
+          <text x="268" y="125" font-family="JetBrains Mono" font-size="18" font-weight="700" fill="#5ee6c6">1,500</text>
+          <rect x="364" y="84" width="76" height="60" rx="8" fill="#0d1117" stroke="#232a35" stroke-width="1"/>
+          <text x="376" y="103" font-family="JetBrains Mono" font-size="8" fill="#5c6470">REGIONS</text>
+          <text x="376" y="125" font-family="JetBrains Mono" font-size="18" font-weight="700" fill="#5ee6c6">5</text>
+          <rect x="40" y="164" width="224" height="140" rx="8" fill="#0d1117" stroke="#232a35" stroke-width="1"/>
+          <text x="52" y="182" font-family="JetBrains Mono" font-size="8" fill="#5c6470">REVENUE BY REGION</text>
+          <rect x="56"  y="250" width="24" height="42" rx="3" fill="#2f6e62" opacity="0.7"/>
+          <rect x="92"  y="235" width="24" height="57" rx="3" fill="#2f6e62" opacity="0.7"/>
+          <rect x="128" y="218" width="24" height="74" rx="3" fill="#5ee6c6"/>
+          <rect x="164" y="230" width="24" height="62" rx="3" fill="#2f6e62" opacity="0.7"/>
+          <rect x="200" y="242" width="24" height="50" rx="3" fill="#2f6e62" opacity="0.7"/>
+          <text x="68"  y="302" font-family="JetBrains Mono" font-size="7" fill="#5c6470" text-anchor="middle">E</text>
+          <text x="104" y="302" font-family="JetBrains Mono" font-size="7" fill="#5c6470" text-anchor="middle">W</text>
+          <text x="140" y="302" font-family="JetBrains Mono" font-size="7" fill="#5ee6c6" text-anchor="middle">N</text>
+          <text x="176" y="302" font-family="JetBrains Mono" font-size="7" fill="#5c6470" text-anchor="middle">S</text>
+          <text x="212" y="302" font-family="JetBrains Mono" font-size="7" fill="#5c6470" text-anchor="middle">C</text>
+          <polyline points="68,255 104,242 140,225 176,238 212,248" fill="none" stroke="#5ee6c6" stroke-width="1.5" stroke-dasharray="3 2" opacity="0.6"/>
+          <rect x="276" y="164" width="164" height="140" rx="8" fill="#0d1117" stroke="#232a35" stroke-width="1"/>
+          <text x="288" y="182" font-family="JetBrains Mono" font-size="8" fill="#5c6470">CHURN CATEGORY</text>
+          <circle cx="358" cy="250" r="46" fill="none" stroke="#1a2a26" stroke-width="22"/>
+          <circle cx="358" cy="250" r="46" fill="none" stroke="#5ee6c6" stroke-width="22" stroke-dasharray="130 160" stroke-dashoffset="0" stroke-linecap="round"/>
+          <circle cx="358" cy="250" r="46" fill="none" stroke="#2f6e62" stroke-width="22" stroke-dasharray="49 241" stroke-dashoffset="-130" stroke-linecap="round"/>
+          <circle cx="358" cy="250" r="46" fill="none" stroke="#8b949e" stroke-width="22" stroke-dasharray="33 257" stroke-dashoffset="-179"/>
+          <circle cx="358" cy="250" r="26" fill="#0d1117"/>
+          <text x="358" y="247" font-family="JetBrains Mono" font-size="9" font-weight="700" fill="#5ee6c6" text-anchor="middle">45%</text>
+          <text x="358" y="259" font-family="JetBrains Mono" font-size="6" fill="#5c6470" text-anchor="middle">COMPETE</text>
+          <rect x="40" y="316" width="400" height="64" rx="8" fill="#0d1117" stroke="#232a35" stroke-width="1"/>
+          <text x="52" y="333" font-family="JetBrains Mono" font-size="8" fill="#5c6470">SALESPERSON PERFORMANCE</text>
+          <line x1="40" y1="340" x2="440" y2="340" stroke="#232a35" stroke-width="1"/>
+          <text x="52" y="356" font-family="JetBrains Mono" font-size="8" fill="#e6edf3">Bob</text>
+          <text x="160" y="356" font-family="JetBrains Mono" font-size="8" fill="#5ee6c6">$796,781</text>
+          <text x="280" y="356" font-family="JetBrains Mono" font-size="8" fill="#8b949e">26.3%</text>
+          <rect x="360" y="349" width="60" height="6" rx="3" fill="#2f6e62"/>
+          <rect x="360" y="349" width="44" height="6" rx="3" fill="#5ee6c6"/>
+          <line x1="40" y1="362" x2="440" y2="362" stroke="#232a35" stroke-width="0.5"/>
+          <text x="52" y="374" font-family="JetBrains Mono" font-size="8" fill="#e6edf3">Alice</text>
+          <text x="160" y="374" font-family="JetBrains Mono" font-size="8" fill="#5ee6c6">$786,166</text>
+          <text x="280" y="374" font-family="JetBrains Mono" font-size="8" fill="#8b949e">24.7%</text>
+          <rect x="360" y="367" width="60" height="6" rx="3" fill="#2f6e62"/>
+          <rect x="360" y="367" width="56" height="6" rx="3" fill="#5ee6c6"/>
+          <rect x="24" y="24" width="432" height="372" rx="12" fill="url(#scanlines)" opacity="0.04"/>
+          <defs>
+            <pattern id="scanlines" x="0" y="0" width="1" height="4" patternUnits="userSpaceOnUse">
+              <rect x="0" y="0" width="1" height="2" fill="#5ee6c6"/>
+            </pattern>
+          </defs>
+          <rect x="290" y="42" width="6" height="10" rx="1" fill="#5ee6c6" opacity="0.9">
+            <animate attributeName="opacity" values="0.9;0;0.9" dur="1.2s" repeatCount="indefinite"/>
+          </rect>
+        </svg>
+        <div class="vis-chip vis-chip-1">
+          <span class="chip-val">7,042</span>
+          <span class="chip-label">records analyzed</span>
+        </div>
+        <div class="vis-chip vis-chip-2">
+          <span class="chip-val">38</span>
+          <span class="chip-label">fields processed</span>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="hero-panel">
-    <div class="panel-header">
-      <span class="panel-dot red"></span>
-      <span class="panel-dot yellow"></span>
-      <span class="panel-dot green"></span>
-      <span class="panel-title">query.sql</span>
-    </div>
-    <pre class="panel-code"><code><span class="kw">SELECT</span>
-  region,
-  <span class="fn">ROUND</span>(<span class="fn">SUM</span>(revenue), 2) <span class="kw">AS</span> total_revenue,
-  <span class="fn">COUNT</span>(<span class="kw">DISTINCT</span> customer_id) <span class="kw">AS</span> customers
-<span class="kw">FROM</span> sales
-<span class="kw">WHERE</span> order_date >= <span class="str">'2026-01-01'</span>
-<span class="kw">GROUP BY</span> region
-<span class="kw">ORDER BY</span> total_revenue <span class="kw">DESC</span>;
 
-<span class="comment">-- 4 rows returned in 0.014s</span></code></pre>
+  <div class="hero-scroll">
+    <span class="scroll-label">SCROLL TO EXPLORE</span>
+    <div class="scroll-line"></div>
   </div>
-</header>
+</section>
 
-<main>
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="mq-item">SQL</span><span class="mq-sep">✦</span>
+    <span class="mq-item">Excel</span><span class="mq-sep">✦</span>
+    <span class="mq-item">Power BI</span><span class="mq-sep">✦</span>
+    <span class="mq-item">Pivot Tables</span><span class="mq-sep">✦</span>
+    <span class="mq-item">Python</span><span class="mq-sep">✦</span>
+    <span class="mq-item">DAX</span><span class="mq-sep">✦</span>
+    <span class="mq-item">PostgreSQL</span><span class="mq-sep">✦</span>
+    <span class="mq-item">Tableau</span><span class="mq-sep">✦</span>
+    <span class="mq-item">BigQuery</span><span class="mq-sep">✦</span>
+    <span class="mq-item">Looker Studio</span><span class="mq-sep">✦</span>
+    <span class="mq-item">Pandas</span><span class="mq-sep">✦</span>
+    <span class="mq-item">ETL</span><span class="mq-sep">✦</span>
+    <span class="mq-item">SQL</span><span class="mq-sep">✦</span>
+    <span class="mq-item">Excel</span><span class="mq-sep">✦</span>
+    <span class="mq-item">Power BI</span><span class="mq-sep">✦</span>
+    <span class="mq-item">Pivot Tables</span><span class="mq-sep">✦</span>
+    <span class="mq-item">Python</span><span class="mq-sep">✦</span>
+    <span class="mq-item">DAX</span><span class="mq-sep">✦</span>
+    <span class="mq-item">PostgreSQL</span><span class="mq-sep">✦</span>
+    <span class="mq-item">Tableau</span><span class="mq-sep">✦</span>
+    <span class="mq-item">BigQuery</span><span class="mq-sep">✦</span>
+    <span class="mq-item">Looker Studio</span><span class="mq-sep">✦</span>
+    <span class="mq-item">Pandas</span><span class="mq-sep">✦</span>
+    <span class="mq-item">ETL</span><span class="mq-sep">✦</span>
+  </div>
+</div>
 
-<!-- ===== ABOUT ===== -->
-<section class="section" id="about">
-  <div class="section-inner">
-    <p class="section-label"><span class="line-no">|</span> about</p>
+<!-- SELECTED WORK -->
+<section class="section-work" id="projects">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-eyebrow">SELECTED WORK</p>
+      <h2 class="section-title">Crafted <em>analytical</em><br>experiences</h2>
+      <p class="section-desc">A curated set of data projects built with rigorous methodology, clean presentation, and insights that drove real decisions.</p>
+    </div>
+    <div class="work-grid">
+      <article class="work-card">
+        <div class="work-card-inner">
+          <div class="work-card-top">
+            <span class="work-tag">Excel &middot; Pivot Tables &middot; DAX</span>
+            <span class="work-num">01</span>
+          </div>
+          <h3 class="work-title">Regional Sales<br>Analysis</h3>
+          <p class="work-desc">Full analytical deep-dive into 1,500 sales orders across 5 regions — uncovering revenue patterns, delivery performance, and return drivers.</p>
+          <div class="work-meta">
+            <span class="work-chip">1,500 orders</span>
+            <span class="work-chip">5 regions</span>
+            <span class="work-chip">$4.38M revenue</span>
+          </div>
+          <a href="projects/regional-sales-analysis.html" class="work-link">View Case Study <span class="work-arrow">→</span></a>
+        </div>
+      </article>
+      <article class="work-card">
+        <div class="work-card-inner">
+          <div class="work-card-top">
+            <span class="work-tag">Excel &middot; Pivot Tables &middot; Customer Analytics</span>
+            <span class="work-num">02</span>
+          </div>
+          <h3 class="work-title">Telecom Customer<br>Churn Analysis</h3>
+          <p class="work-desc">Investigated 7,042 customer records across 38 fields to identify churn drivers, profile at-risk segments, and surface retention strategies.</p>
+          <div class="work-meta">
+            <span class="work-chip">7,042 customers</span>
+            <span class="work-chip">38 fields</span>
+            <span class="work-chip">26.5% churn</span>
+          </div>
+          <a href="projects/telecom-churn.html" class="work-link">View Case Study <span class="work-arrow">→</span></a>
+        </div>
+      </article>
+      <article class="work-card">
+        <div class="work-card-inner">
+          <div class="work-card-top">
+            <span class="work-tag">SQL &middot; ETL</span>
+            <span class="work-num">03</span>
+          </div>
+          <h3 class="work-title">Marketing Spend<br>&amp; ROI Pipeline</h3>
+          <p class="work-desc">Designed an ETL process to consolidate ad spend across platforms into a single source of truth, cutting reporting time from two days to two hours.</p>
+          <div class="work-meta">
+            <span class="work-chip">MySQL</span>
+            <span class="work-chip">Google Sheets API</span>
+            <span class="work-chip">Looker Studio</span>
+          </div>
+          <a href="#" class="work-link">View Case Study <span class="work-arrow">→</span></a>
+        </div>
+      </article>
+      <article class="work-card">
+        <div class="work-card-inner">
+          <div class="work-card-top">
+            <span class="work-tag">SQL &middot; Forecasting</span>
+            <span class="work-num">04</span>
+          </div>
+          <h3 class="work-title">Inventory Demand<br>Forecast</h3>
+          <p class="work-desc">Analyzed two years of sales history to build a demand forecasting model, reducing stockouts on top SKUs by an estimated 18%.</p>
+          <div class="work-meta">
+            <span class="work-chip">SQL</span>
+            <span class="work-chip">Python</span>
+            <span class="work-chip">Excel</span>
+          </div>
+          <a href="#" class="work-link">View Case Study <span class="work-arrow">→</span></a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="section-process">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-eyebrow">PROCESS</p>
+      <h2 class="section-title">From question<br>to <em>clarity</em></h2>
+      <p class="section-desc">A focused analytical workflow for turning vague business problems into sharp, decision-ready findings.</p>
+    </div>
+    <div class="process-grid">
+      <div class="process-card">
+        <span class="process-num">PHASE 01</span>
+        <h3 class="process-title">Define</h3>
+        <p class="process-body">Clarify the business question, identify the relevant data, and set the analytical frame before opening a single file.</p>
+      </div>
+      <div class="process-card">
+        <span class="process-num">PHASE 02</span>
+        <h3 class="process-title">Clean</h3>
+        <p class="process-body">Audit every column for nulls, duplicates, and type mismatches — then treat each with explicit, documented decisions.</p>
+      </div>
+      <div class="process-card">
+        <span class="process-num">PHASE 03</span>
+        <h3 class="process-title">Analyze</h3>
+        <p class="process-body">Select metrics that directly answer the question. Use rates over raw counts, segment by what matters, build structures that hold scrutiny.</p>
+      </div>
+      <div class="process-card">
+        <span class="process-num">PHASE 04</span>
+        <h3 class="process-title">Communicate</h3>
+        <p class="process-body">Package findings into dashboards and documents that give stakeholders a clear action, not just a chart to stare at.</p>
+      </div>
+    </div>
+    <div class="process-stats">
+      <div class="pstat"><span class="pstat-val">4</span><span class="pstat-label">PHASES</span></div>
+      <div class="pstat-div"></div>
+      <div class="pstat"><span class="pstat-val">100<span class="pstat-unit">%</span></span><span class="pstat-label">DATA-DRIVEN</span></div>
+      <div class="pstat-div"></div>
+      <div class="pstat"><span class="pstat-val">∞</span><span class="pstat-label">QUESTIONS ANSWERED</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section-about" id="about">
+  <div class="container">
     <div class="about-grid">
-      <div class="about-text">
-        <h2>Background</h2>
-        <p>
-          I'm a data analyst who enjoys the moment a messy spreadsheet turns into
-          a clear answer. My toolkit centers on Microsoft Excel, PowerBi, SQL for digging through data,
-          Python for cleaning and modeling it, and dashboards for putting it in
-          front of people who need to act on it.
-        </p>
-        <p>
-          I care most about the questions behind the numbers, why a metric
-          moved, what it means for the business, and how to communicate that
-          without burying anyone in jargon.
-        </p>
+      <div class="about-left">
+        <p class="section-eyebrow">ABOUT ME</p>
+        <h2 class="about-title">Sharp analysis.<br><em>Clear answers.</em></h2>
+        <p class="about-body">I'm a data analyst who enjoys the moment a messy spreadsheet turns into a clear answer. My toolkit centres on SQL for querying, Excel and Power BI for dashboards, and Python for cleaning and modelling.</p>
+        <p class="about-body">I care most about the questions behind the numbers — why a metric moved, what it means for the business, and how to communicate that without burying anyone in jargon.</p>
+        <div class="about-status">
+          <span class="status-dot"></span>
+          <span class="status-text">OPEN FOR WORK</span>
+        </div>
+        <div class="about-skills">
+          <span class="skill-pill">#&nbsp;CLARITY</span>
+          <span class="skill-pill">#&nbsp;STRUCTURE</span>
+          <span class="skill-pill">#&nbsp;PRECISION</span>
+          <span class="skill-pill">#&nbsp;IMPACT</span>
+        </div>
       </div>
-      <div class="about-stats">
-        <div class="stat-card">
-          <span class="stat-value">3+</span>
-          <span class="stat-label">years working with data</span>
+      <div class="about-right">
+        <div class="about-stats-grid">
+          <div class="astat"><span class="astat-val">3<span class="astat-plus">+</span></span><span class="astat-label">YEARS WITH DATA</span></div>
+          <div class="astat"><span class="astat-val">20<span class="astat-plus">+</span></span><span class="astat-label">DASHBOARDS SHIPPED</span></div>
+          <div class="astat"><span class="astat-val">4</span><span class="astat-label">CORE TOOLS</span></div>
+          <div class="astat"><span class="astat-val">0</span><span class="astat-label">VANITY METRICS</span></div>
         </div>
-        <div class="stat-card">
-          <span class="stat-value">3+</span>
-          <span class="stat-label">dashboards &amp; projects done</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-value">SQL</span>
-          <span class="stat-label">primary query language</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-value">Py</span>
-          <span class="stat-label">analysis &amp; automation</span>
+        <div class="about-expertise">
+          <div class="exp-row"><span class="exp-num">01</span><div class="exp-content"><span class="exp-title">SQL &amp; Databases</span><span class="exp-desc">Querying across PostgreSQL, MySQL, BigQuery</span></div></div>
+          <div class="exp-row"><span class="exp-num">02</span><div class="exp-content"><span class="exp-title">Excel &amp; Power BI</span><span class="exp-desc">Pivot Tables, DAX measures, interactive dashboards</span></div></div>
+          <div class="exp-row"><span class="exp-num">03</span><div class="exp-content"><span class="exp-title">Python Analysis</span><span class="exp-desc">Pandas, NumPy, EDA, and automation scripts</span></div></div>
+          <div class="exp-row"><span class="exp-num">04</span><div class="exp-content"><span class="exp-title">Visual Storytelling</span><span class="exp-desc">Charts, reports, and decks decision-makers actually read</span></div></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== PROJECTS ===== -->
-<section class="section section-alt" id="projects">
-  <div class="section-inner">
-    <p class="section-label"><span class="line-no">|</span> projects</p>
-    <h2 class="section-heading">Selected work</h2>
-
-    <div class="projects-grid">
-
-      <article class="project-card">
-        <div class="project-head">
-          <span class="project-tag">Excel &middot; Data Analysis</span>
-        </div>
-        <h3>Regional Sales Analysis</h3>
-        <p>
-          Full analytical deep-dive into 1,500 sales orders across 5 regions —
-          uncovering revenue patterns, delivery performance, promotion effectiveness,
-          and return drivers to guide operational decisions.
-        </p>
-        <ul class="project-meta">
-          <li>Excel</li>
-          <li>Pivot Tables</li>
-          <li>DAX</li>
-        </ul>
-        <a href="Projects/regional-sales-analysis.html" class="project-link">View case study &rarr;</a>
-      </article>
-
-      <article class="project-card">
-        <div class="project-head">
-          <span class="project-tag">SQL &middot; Dashboard</span>
-        </div>
-        <h3>Sales Performance Dashboard</h3>
-        <p>
-          Built an interactive dashboard tracking revenue, churn, and regional
-          performance across 12 months of sales data, replacing a manual weekly
-          spreadsheet report.
-        </p>
-        <ul class="project-meta">
-          <li>PostgreSQL</li>
-          <li>Tableau</li>
-          <li>Python</li>
-        </ul>
-        <a href="#" class="project-link">View case study &rarr;</a>
-      </article>
-
-      <article class="project-card">
-        <div class="project-head">
-          <span class="project-tag">Python &middot; EDA</span>
-        </div>
-        <h3>Customer Churn Analysis</h3>
-        <p>
-          Explored behavioral and transactional data to identify the top
-          predictors of churn, surfacing three actionable retention levers
-          for the customer success team.
-        </p>
-        <ul class="project-meta">
-          <li>Pandas</li>
-          <li>Matplotlib</li>
-          <li>scikit-learn</li>
-        </ul>
-        <a href="#" class="project-link">View case study &rarr;</a>
-      </article>
-
-      <article class="project-card">
-        <div class="project-head">
-          <span class="project-tag">SQL &middot; ETL</span>
-        </div>
-        <h3>Marketing Spend &amp; ROI Pipeline</h3>
-        <p>
-          Designed a lightweight ETL process to consolidate ad spend across
-          platforms into a single source of truth, cutting reporting time
-          from two days to two hours.
-        </p>
-        <ul class="project-meta">
-          <li>MySQL</li>
-          <li>Google Sheets API</li>
-          <li>Looker Studio</li>
-        </ul>
-        <a href="#" class="project-link">View case study &rarr;</a>
-      </article>
-
-      <article class="project-card">
-        <div class="project-head">
-          <span class="project-tag">SQL &middot; Forecasting</span>
-        </div>
-        <h3>Inventory Demand Forecast</h3>
-        <p>
-          Analyzed two years of sales history to build a simple demand
-          forecasting model, reducing stockouts on top SKUs by an estimated 18%.
-        </p>
-        <ul class="project-meta">
-          <li>SQL</li>
-          <li>Python</li>
-          <li>Excel</li>
-        </ul>
-        <a href="#" class="project-link">View case study &rarr;</a>
-      </article>
-
-    </div>
-  </div>
-</section>
-
-<!-- ===== SKILLS ===== -->
-<section class="section" id="skills">
-  <div class="section-inner">
-    <p class="section-label"><span class="line-no">|</span> skills</p>
-    <h2 class="section-heading">Toolkit</h2>
-
-    <div class="skills-grid">
-      <div class="skill-group">
-        <h3>Querying &amp; Databases</h3>
-        <div class="tag-row">
-          <span class="tag">SQL</span>
-          <span class="tag">PostgreSQL</span>
-          <span class="tag">MySQL</span>
-          <span class="tag">BigQuery</span>
-        </div>
+<!-- SKILLS -->
+<section class="section-skills" id="skills">
+  <div class="container">
+    <p class="section-eyebrow">TOOLKIT</p>
+    <h2 class="section-title">Built for <em>every</em><br>layer of the stack</h2>
+    <div class="skills-cols">
+      <div class="skills-col">
+        <h3 class="skills-col-title">Querying &amp; Databases</h3>
+        <div class="tag-row"><span class="tag">SQL</span><span class="tag">PostgreSQL</span><span class="tag">MySQL</span><span class="tag">BigQuery</span></div>
       </div>
-      <div class="skill-group">
-        <h3>Analysis &amp; Scripting</h3>
-        <div class="tag-row">
-          <span class="tag">Python</span>
-          <span class="tag">Pandas</span>
-          <span class="tag">NumPy</span>
-          <span class="tag">Jupyter</span>
-        </div>
+      <div class="skills-col">
+        <h3 class="skills-col-title">Analysis &amp; Scripting</h3>
+        <div class="tag-row"><span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">NumPy</span><span class="tag">Jupyter</span></div>
       </div>
-      <div class="skill-group">
-        <h3>Visualization &amp; BI</h3>
-        <div class="tag-row">
-          <span class="tag">Power BI</span>
-          <span class="tag">Excel</span>
-        </div>
+      <div class="skills-col">
+        <h3 class="skills-col-title">Visualization &amp; BI</h3>
+        <div class="tag-row"><span class="tag">Tableau</span><span class="tag">Looker Studio</span><span class="tag">Power BI</span><span class="tag">Excel</span></div>
       </div>
-      <div class="skill-group">
-        <h3>Workflow</h3>
-        <div class="tag-row">
-          <span class="tag">Git</span>
-          <span class="tag">A/B Testing</span>
-          <span class="tag">Statistics</span>
-          <span class="tag">ETL</span>
-        </div>
+      <div class="skills-col">
+        <h3 class="skills-col-title">Workflow</h3>
+        <div class="tag-row"><span class="tag">Git</span><span class="tag">A/B Testing</span><span class="tag">Statistics</span><span class="tag">ETL</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== CONTACT ===== -->
-<section class="section section-alt" id="contact">
-  <div class="section-inner contact-inner">
-    <p class="section-label"><span class="line-no">|</span> contact</p>
-    <h2 class="section-heading">Let's talk data.</h2>
-    <p class="contact-sub">
-      Have a dataset that needs untangling, or a role you think I'd be a fit for?
-      I'd love to hear from you.
-    </p>
-    <div class="contact-links">
-      <a href="mailto:adewaledave4@gmail.com" class="contact-link">
-        <span class="contact-label">email</span>
-        <span class="contact-value">Send Mail</span>
-      </a>
-      <a href="www.linkedin.com/in/adewale-akinwale-0a4b1525a" class="contact-link">
-        <span class="contact-label">linkedin</span>
-        <span class="contact-value">LinkedIn Profile</span>
-      </a>
-      <a href="github.com/RXNXC" class="contact-link">
-        <span class="contact-label">github</span>
-        <span class="contact-value">GitHub Profile</span>
-      </a>
+<!-- CONTACT + FOOTER -->
+<section class="section-contact" id="contact">
+  <div class="container">
+    <div class="contact-top">
+      <p class="section-eyebrow">LET'S CONNECT</p>
+      <h2 class="contact-title">Let's build<br>something <em>with data</em>.</h2>
+      <p class="contact-body">Have a dataset that needs untangling, or a role you think I'd be a fit for? I'm currently available for new projects and opportunities.</p>
+      <div class="contact-links-row">
+        <a href="mailto:hello@example.com" class="contact-item"><span class="contact-item-label">EMAIL</span><span class="contact-item-val">hello@example.com</span></a>
+        <a href="#" class="contact-item"><span class="contact-item-label">LINKEDIN</span><span class="contact-item-val">/in/janedoe</span></a>
+        <a href="#" class="contact-item"><span class="contact-item-label">GITHUB</span><span class="contact-item-val">/janedoe</span></a>
+      </div>
+      <a href="mailto:hello@example.com" class="btn-primary btn-lg">START A CONVERSATION</a>
+    </div>
+    <div class="contact-bottom">
+      <div class="footer-left">
+        <a href="#top" class="footer-logo">jane<span class="accent">_</span>doe</a>
+        <ul class="footer-nav">
+          <li><a href="#about">ABOUT</a></li>
+          <li><a href="#projects">WORKS</a></li>
+          <li><a href="#skills">SKILLS</a></li>
+          <li><a href="#contact">CONTACT</a></li>
+        </ul>
+      </div>
+      <div class="footer-right">
+        <span class="footer-copy">&copy; 2026 Jane Doe</span>
+        <div class="footer-status">
+          <span class="status-dot"></span>
+          <span class="status-text">OPEN FOR WORK</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
-
-</main>
-
-<footer class="footer">
-  <div class="section-inner footer-inner">
-    <span>&copy; 2026 RXNXC</span>
-    <span class="footer-meta">Built with HTML, CSS &amp; vanilla JS</span>
-  </div>
-</footer>
 
 <script src="script.js"></script>
 </body>
