@@ -13,17 +13,14 @@
 <body>
 
 <!-- NAV -->
-<nav class="nav">
+<nav class="nav" id="nav">
   <div class="nav-inner">
-    <a href="../index.html" class="nav-logo">jane<span class="accent">_</span>doe<span class="cursor">|</span></a>
-    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
+    <a href="#top" class="nav-logo">ADEWALE<span class="accent"> </span>DAVID AKINWALE</a>
     <ul class="nav-links">
-      <li><a href="../index.html#about"><span class="line-no">01</span> about</a></li>
-      <li><a href="../index.html#projects"><span class="line-no">02</span> projects</a></li>
-      <li><a href="../index.html#skills"><span class="line-no">03</span> skills</a></li>
-      <li><a href="../index.html#contact"><span class="line-no">04</span> contact</a></li>
+      <li><a href="#about">ABOUT</a></li>
+      <li><a href="#projects">WORKS</a></li>
+      <li><a href="#skills">SKILLS</a></li>
+      <li><a href="#contact">CONTACT</a></li>
     </ul>
   </div>
 </nav>
@@ -35,8 +32,7 @@
   <h1>Telecom Customer<br><span class="accent">Churn</span> Analysis</h1>
   <p class="project-hero-sub">
     A full analytical investigation into 7,042 telecom customers across 38 fields,
-    identifying who churned, who stayed, who joined, what drove departures, and
-    whether the company is losing its most valuable customers.
+    identifying who churned, who stayed, who joined, and what drove departures
   </p>
   <div class="project-meta-bar">
     <div class="meta-item"><span class="meta-key">Customers</span><span class="meta-val">7,042 records</span></div>
@@ -44,7 +40,6 @@
     <div class="meta-item"><span class="meta-key">Churned</span><span class="meta-val">1,869</span></div>
     <div class="meta-item"><span class="meta-key">Net Change</span><span class="meta-val">−1,415 customers</span></div>
     <div class="meta-item"><span class="meta-key">Top Driver</span><span class="meta-val">Competitor (45%)</span></div>
-    <div class="meta-item"><span class="meta-key">High-Value Lost</span><span class="meta-val">261 customers</span></div>
   </div>
 </header>
 
@@ -57,14 +52,14 @@
     <div class="gallery-grid">
 
       <div class="gallery-card" role="button" tabindex="0"
-           data-img="assets/churn-dashboard-1.jpg"
+           data-img="assets/tcdashboard1.png"
            data-title="Dashboard 1 — Customer Overview &amp; Profiles (Q1 &amp; Q2)">
         <div class="gallery-card-chrome">
           <span class="panel-dot red"></span><span class="panel-dot yellow"></span><span class="panel-dot green"></span>
           <span class="gallery-card-label">Dashboard_1_Overview.xlsx</span>
         </div>
         <div class="gallery-img-wrap">
-          <img src="assets/churn-dashboard-1.jpg" alt="Dashboard 1: Customer overview and profiles" loading="lazy">
+          <img src="assets/tcdashboard1.png" alt="Dashboard 1: Customer overview and profiles" loading="lazy">
           <div class="gallery-overlay"><span class="gallery-zoom-icon">⤢ Expand</span></div>
         </div>
         <div class="gallery-card-footer">
@@ -75,14 +70,14 @@
       </div>
 
       <div class="gallery-card" role="button" tabindex="0"
-           data-img="assets/churn-dashboard-2.jpg"
+           data-img="assets/tcdashboard2.png"
            data-title="Dashboard 2 — Key Churn Drivers (Q3)">
         <div class="gallery-card-chrome">
           <span class="panel-dot red"></span><span class="panel-dot yellow"></span><span class="panel-dot green"></span>
           <span class="gallery-card-label">Dashboard_2_ChurnDrivers.xlsx</span>
         </div>
         <div class="gallery-img-wrap">
-          <img src="assets/churn-dashboard-2.jpg" alt="Dashboard 2: Key churn drivers" loading="lazy">
+          <img src="assets/tcdashboard2.png" alt="Dashboard 2: Key churn drivers" loading="lazy">
           <div class="gallery-overlay"><span class="gallery-zoom-icon">⤢ Expand</span></div>
         </div>
         <div class="gallery-card-footer">
@@ -93,14 +88,14 @@
       </div>
 
       <div class="gallery-card" role="button" tabindex="0"
-           data-img="assets/churn-dashboard-3.jpg"
+           data-img="assets/tcdashboard3.png"
            data-title="Dashboard 3 — Internet Type &amp; Service Analysis (Q4)">
         <div class="gallery-card-chrome">
           <span class="panel-dot red"></span><span class="panel-dot yellow"></span><span class="panel-dot green"></span>
           <span class="gallery-card-label">Dashboard_3_Services.xlsx</span>
         </div>
         <div class="gallery-img-wrap">
-          <img src="assets/churn-dashboard-3.jpg" alt="Dashboard 3: Internet type and service analysis" loading="lazy">
+          <img src="assets/tcdashboard3.png" alt="Dashboard 3: Internet type and service analysis" loading="lazy">
           <div class="gallery-overlay"><span class="gallery-zoom-icon">⤢ Expand</span></div>
         </div>
         <div class="gallery-card-footer">
@@ -157,10 +152,6 @@
         <span class="tool-card-name">Slicers</span>
         <span class="tool-card-role">Interactive filters connected to all Pivot Tables and Charts, enabling real-time segmentation by Customer Status, Contract type, Internet Type, and Offer</span>
       </div>
-      <div class="tool-card">
-        <span class="tool-card-name">Conditional Formatting</span>
-        <span class="tool-card-role">Colour scales and data bars applied to Pivot Table outputs to surface outliers, highest-risk segments, and top churn reasons at a glance without additional charts</span>
-      </div>
     </div>
   </section>
 
@@ -168,7 +159,7 @@
   <section class="proj-section" id="questions">
     <p class="proj-section-label"><span class="line-no">02</span> questions to be answered</p>
     <h2>Questions to Be Answered</h2>
-    <p>Four stakeholder business questions framed the entire analysis. Each drove a dedicated Pivot Table layout, a chosen set of metrics, and a dashboard panel. Defining questions before building anything ensured every chart and calculation served a decision-making purpose.</p>
+    <p>Three stakeholder business questions framed the entire analysis. Each drove a dedicated Pivot Table layout, a chosen set of metrics, and a dashboard panel. Defining questions before building anything ensured every chart and calculation served a decision-making purpose.</p>
     <div class="q-list">
 
       <div class="q-item">
@@ -209,20 +200,6 @@
             <span class="q-tag">Churn rate by Contract</span>
             <span class="q-tag">Churn rate by Internet Type</span>
             <span class="q-tag">Churn rate by Tech Support</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="q-item">
-        <span class="q-num">Q4</span>
-        <div class="q-item-body">
-          <p class="q-item-text">Is the company losing high-value customers? If so, how can they be retained?</p>
-          <div class="q-item-tags">
-            <span class="q-tag">Total Revenue quartiles</span>
-            <span class="q-tag">Churn rate per quartile</span>
-            <span class="q-tag">Avg Monthly Charge (Q4 churned)</span>
-            <span class="q-tag">Avg Tenure (Q4 churned)</span>
-            <span class="q-tag">Churn Reason in Q4</span>
           </div>
         </div>
       </div>
@@ -584,32 +561,7 @@
         </div>
       </div>
     </div>
-
-    <!-- Q4 -->
-    <div class="metric-block">
-      <div class="metric-header">
-        <span class="metric-badge">Q4</span>
-        <span class="metric-title">High-value customer loss</span>
-      </div>
-      <div class="metric-body">
-        <div class="metric-row">
-          <span class="metric-name">Total Revenue quartiles (Q1–Q4)</span>
-          <span class="metric-why">Total Revenue (not Monthly Charge) was used to define "high value" because it reflects realized lifetime contribution, not just current pricing. A customer who has paid for five years is more valuable than one paying a higher rate for one month. Quartiles (not a fixed dollar threshold) were chosen so "high value" is always defined relative to this specific customer base, making the definition robust if re-run on a different period or population.</span>
-        </div>
-        <div class="metric-row">
-          <span class="metric-name">Churn rate within each revenue quartile</span>
-          <span class="metric-why">Determines whether churn risk is concentrated in lower-value or higher-value customers. If high-value customers churn less frequently but their revenue impact per loss is disproportionately large, both facts need to be visible for a complete picture. The monotonically declining churn rate (45.3% → 14.8% from Q1 to Q4) confirms that value and loyalty co-occur in this dataset.</span>
-        </div>
-        <div class="metric-row">
-          <span class="metric-name">Avg Monthly Charge &amp; Avg Tenure for Q4 churned</span>
-          <span class="metric-why">Characterises exactly who was lost among high-value churners: what they were paying ($91.58/month) and how long they had stayed (54.9 months average) before leaving. A nearly 5-year average tenure before churn directly signals the company had a long intervention window but did not act proactively. This is the most actionable finding in Q4.</span>
-        </div>
-        <div class="metric-row">
-          <span class="metric-name">Churn Reason frequency within Q4 churned</span>
-          <span class="metric-why">The top-quartile group may leave for different reasons than the overall churned population, and determining this decides whether a retention strategy can be uniform or must be tiered. The overlap (devices, offers, support) with the overall population suggests the same drivers apply across value segments, making a single retention programme more feasible.</span>
-        </div>
-      </div>
-    </div>
+    
   </section>
 
   <!-- 05. INSIGHTS -->
@@ -709,40 +661,7 @@
       <p>Competitive pressure drives 45% of all stated churn. But the behavioral data independently surfaces contract type as the strongest structural predictor: month-to-month customers churn at <strong>17× the rate of two-year holders</strong> (45.8% vs. 2.6%). Premium Tech Support access roughly halves churn risk. Fiber optic customers churn at 40.7%, notably higher than DSL (18.6%) despite being a premium product, pointing to a price-to-performance perception gap the company needs to address.</p>
     </div>
 
-    <!-- Q4 -->
-    <p class="q-label-accent">Q4 — High-Value Customer Loss</p>
-    <div class="table-wrap mb-sm">
-      <table class="data-table">
-        <thead><tr><th>Revenue Quartile</th><th>Churn Rate</th><th>Interpretation</th></tr></thead>
-        <tbody>
-          <tr><td class="dm">Q1 — Lowest value</td><td class="dm">45.3%</td><td>Highest churn: lowest-value customers leave most frequently</td></tr>
-          <tr><td>Q2</td><td>27.0%</td><td>Risk drops significantly moving up the value ladder</td></tr>
-          <tr><td>Q3</td><td>18.7%</td><td>Declining risk continues</td></tr>
-          <tr><td class="hl">Q4 — Highest value</td><td class="hl">14.8%</td><td>Lowest churn rate, but each loss carries the highest revenue impact</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="kpi-row mb-sm">
-      <div class="kpi-card kpi-bad">
-        <span class="kpi-label">High-Value Customers Lost</span>
-        <span class="kpi-value">261</span>
-        <span class="kpi-sub">Top revenue quartile churners</span>
-      </div>
-      <div class="kpi-card kpi-neutral">
-        <span class="kpi-label">Avg Monthly Charge</span>
-        <span class="kpi-value">$91.58</span>
-        <span class="kpi-sub">Among Q4 churned customers</span>
-      </div>
-      <div class="kpi-card kpi-neutral">
-        <span class="kpi-label">Avg Tenure Before Churn</span>
-        <span class="kpi-value">54.9 mo</span>
-        <span class="kpi-sub">~4.6 years of loyalty before leaving</span>
-      </div>
-    </div>
-    <div class="insight-callout">
-      <span class="callout-icon">→</span>
-      <p>Yes: 261 high-value customers churned. Their top stated reasons: better competitor devices (45 customers), better competitor offer (43 customers), and support attitude (28 customers). These customers stayed loyal for nearly 5 years on average before leaving, signalling the company had a long intervention window but did not act. Their churn rate (14.8%) is the lowest of any quartile, but their revenue impact per lost customer is the highest.</p>
-    </div>
+   
   </section>
 
   <!-- 06. RECOMMENDATIONS -->
