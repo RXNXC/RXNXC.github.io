@@ -390,3 +390,76 @@
   .rec-block      { padding: 18px 20px; }
   .lightbox       { padding: 8px; }
 }
+
+/* ── DAX Measure Blocks (mirrors regional-sales-analysis.css) ─── */
+.measure-block {
+  background: var(--panel); border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden; margin-bottom: 20px;
+}
+
+.measure-header {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px 22px; background: var(--bg); border-bottom: 1px solid var(--border);
+}
+
+.measure-badge {
+  font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700;
+  color: var(--bg); background: var(--accent); border-radius: 5px;
+  padding: 3px 9px; flex-shrink: 0;
+}
+
+.measure-name { font-family: var(--font-mono); font-size: 1rem; font-weight: 600; color: var(--text); }
+
+.dax-code-wrap { border-bottom: 1px solid var(--border); }
+
+.dax-chrome {
+  display: flex; align-items: center; gap: 12px;
+  padding: 8px 16px; background: rgba(0,0,0,0.2); border-bottom: 1px solid var(--border);
+}
+
+.dax-lang {
+  font-family: var(--font-mono); font-size: 0.65rem; font-weight: 700;
+  color: var(--accent); background: var(--accent-soft);
+  border: 1px solid var(--accent-dim); border-radius: 4px;
+  padding: 2px 7px; text-transform: uppercase; letter-spacing: 0.05em;
+}
+
+.dax-label { font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-faint); }
+
+.dax-code {
+  font-family: var(--font-mono); font-size: 0.86rem; line-height: 1.9;
+  padding: 18px 20px; margin: 0; overflow-x: auto;
+  background: #0a0f1a; color: var(--text-dim);
+}
+
+.dax-measure { color: #e6edf3; font-weight: 600; }
+.dax-fn      { color: #d2a8ff; }
+.dax-op      { color: #79c0ff; }
+.dax-str     { color: #a5d6a7; }
+.dax-num     { color: #ffa657; }
+
+.measure-rationale { padding: 18px 22px; }
+
+.rationale-heading {
+  font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-faint);
+  text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 10px;
+}
+
+.measure-rationale p {
+  font-size: 0.86rem; color: var(--text-dim); line-height: 1.72; margin: 0; max-width: none;
+}
+
+.measures-note {
+  background: linear-gradient(135deg, rgba(94,230,198,0.06) 0%, rgba(94,230,198,0.01) 100%);
+  border: 1px solid var(--accent-dim); border-radius: var(--radius);
+  padding: 22px 24px; margin-top: 8px;
+}
+
+.measures-note-label {
+  display: block; font-family: var(--font-mono); font-size: 0.7rem;
+  color: var(--accent); margin-bottom: 12px;
+}
+
+.measures-note p {
+  font-size: 0.86rem; color: var(--text-dim); line-height: 1.72; margin: 0; max-width: none;
+}

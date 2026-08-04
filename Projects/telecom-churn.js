@@ -30,10 +30,10 @@
       '.tool-card',
       '.q-item',
       '.cleaning-step',
+      '.measure-block',
       '.metric-block',
       '.kpi-card',
       '.insight-callout',
-      '.limitation-card',
       '.stat-pill',
       '.field-group-card'
     ];
@@ -47,7 +47,7 @@
 
     var STAGGER = [
       'gallery-card', 'tool-card', 'q-item', 'kpi-card',
-      'stat-pill', 'field-group-card', 'limitation-card',
+      'stat-pill', 'field-group-card', 'measure-block',
       'cleaning-step', 'metric-block'
     ];
 
