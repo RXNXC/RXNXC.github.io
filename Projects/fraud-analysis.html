@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fraud Analysis | Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="fraud-analysis.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">jane<span class="accent">_</span>doe<span class="cursor">|</span></a>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="../index.html#about"><span class="line-no">01</span> about</a></li>
+      <li><a href="../index.html#projects"><span class="line-no">02</span> projects</a></li>
+      <li><a href="../index.html#skills"><span class="line-no">03</span> skills</a></li>
+      <li><a href="../index.html#contact"><span class="line-no">04</span> contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="project-hero">
+  <a href="../index.html#projects" class="back-link">← Back to projects</a>
+  <span class="project-hero-tag">MySQL &middot; SQL &middot; Window Functions &middot; CTEs &middot; Financial Crime</span>
+  <h1>Fraud Detection<br><span class="accent">SQL</span> Analysis</h1>
+  <p class="project-hero-sub">
+    A multi-table SQL investigation into 6,270 banking transactions across 120 accounts
+    and 15 merchants, identifying fraud patterns, repeat offenders, high-risk channels,
+    and vulnerable merchants in a Nigerian banking and fintech scenario.
+  </p>
+  <div class="project-meta-bar">
+    <div class="meta-item"><span class="meta-key">Transactions</span><span class="meta-val">6,270 records</span></div>
+    <div class="meta-item"><span class="meta-key">Accounts</span><span class="meta-val">120</span></div>
+    <div class="meta-item"><span class="meta-key">Merchants</span><span class="meta-val">15</span></div>
+    <div class="meta-item"><span class="meta-key">Fraud Rate</span><span class="meta-val">1.37%</span></div>
+    <div class="meta-item"><span class="meta-key">Tool</span><span class="meta-val">MySQL</span></div>
+    <div class="meta-item"><span class="meta-key">SQL Files</span><span class="meta-val">5 files</span></div>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main class="project-body">
+
+  <!-- 01. TOOLS -->
+  <section class="proj-section" id="tools">
+    <p class="proj-section-label"><span class="line-no">01</span> tools used</p>
+    <h2>Tools Used</h2>
+    <p>The entire analysis was written and executed in MySQL across five SQL files: one data cleaning script and one per analytical question. No BI tool or spreadsheet layer was used. All aggregations, rate calculations, and comparisons run as pure SQL directly from the source tables.</p>
+    <div class="tool-grid">
+      <div class="tool-card">
+        <span class="tool-card-name">MySQL</span>
+        <span class="tool-card-role">Primary query engine. All cleaning, transformation, and analysis SQL was executed directly against the source database containing three tables: accounts, merchants, and transactions</span>
+      </div>
+      <div class="tool-card">
+        <span class="tool-card-name">Window Functions</span>
+        <span class="tool-card-role">ROW_NUMBER() OVER(PARTITION BY ...) for duplicate detection across all 12 transaction columns simultaneously; SUM(COUNT(*)) OVER() for within-group percentage shares without a second table scan</span>
+      </div>
+      <div class="tool-card">
+        <span class="tool-card-name">CTEs (WITH clause)</span>
+        <span class="tool-card-role">Used in Q3 and Q4 to stage intermediate results cleanly: fraud counts, repeat offender lists, legitimate averages, and channel totals each in their own named block, improving readability and auditability</span>
+      </div>
+      <div class="tool-card">
+        <span class="tool-card-name">Correlated Subqueries</span>
+        <span class="tool-card-role">Used in Q3 and Q4 to compute per-account and per-merchant aggregates inside a SELECT list, allowing different filter conditions (is_fraud = 0 vs. is_fraud = 1) to appear as separate columns in the same output row</span>
+      </div>
+      <div class="tool-card">
+        <span class="tool-card-name">STR_TO_DATE / ALTER TABLE</span>
+        <span class="tool-card-role">Used to convert the transaction_date column from plain text to a proper MySQL DATETIME type through a safe add-populate-verify-swap workflow that preserved the original column name</span>
+      </div>
+      <div class="tool-card">
+        <span class="tool-card-name">GROUP_CONCAT</span>
+        <span class="tool-card-role">Collapses multi-row lists (fraud channels per account, accounts per merchant) into a single readable cell per group, making repeat-offender and merchant-exposure outputs human-readable without a separate pivot operation</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02. QUESTIONS -->
+  <section class="proj-section" id="questions">
+    <p class="proj-section-label"><span class="line-no">02</span> questions to be answered</p>
+    <h2>Questions to Be Answered</h2>
+    <p>Four business questions structured the analysis. Each drove a dedicated SQL file and a distinct set of joins, aggregations, and metrics. Defining the questions before writing any SQL kept every query purposeful and prevented scope creep.</p>
+    <div class="q-list">
+
+      <div class="q-item">
+        <span class="q-num">Q1</span>
+        <div class="q-item-body">
+          <p class="q-item-text">Which account types, risk profiles, and transaction channels have the highest fraud rates? What share of total transaction value do fraudulent transactions represent?</p>
+          <div class="q-item-tags">
+            <span class="q-tag">Fraud rate by account_type</span>
+            <span class="q-tag">Fraud rate by risk_profile</span>
+            <span class="q-tag">Fraud rate by channel</span>
+            <span class="q-tag">Fraud value share %</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-item">
+        <span class="q-num">Q2</span>
+        <div class="q-item-body">
+          <p class="q-item-text">Which fraud types are most prevalent, and what is the average transaction amount by fraud type?</p>
+          <div class="q-item-tags">
+            <span class="q-tag">Fraud count by type</span>
+            <span class="q-tag">% of all fraud</span>
+            <span class="q-tag">Avg amount per fraud type</span>
+            <span class="q-tag">Max / Min per type</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-item">
+        <span class="q-num">Q3</span>
+        <div class="q-item-body">
+          <p class="q-item-text">Which accounts have had more than one fraudulent transaction? What channels did they use, and how does their fraud activity compare to their average legitimate transaction amount?</p>
+          <div class="q-item-tags">
+            <span class="q-tag">Repeat offenders</span>
+            <span class="q-tag">Channels used in fraud</span>
+            <span class="q-tag">Avg legitimate amount</span>
+            <span class="q-tag">Fraud-to-legit ratio</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-item">
+        <span class="q-num">Q4</span>
+        <div class="q-item-body">
+          <p class="q-item-text">Which merchants and transaction channels are most associated with fraud, and what percentage of each merchant's total transaction volume is fraudulent?</p>
+          <div class="q-item-tags">
+            <span class="q-tag">Channel fraud %</span>
+            <span class="q-tag">Merchant fraud composition %</span>
+            <span class="q-tag">Accounts per merchant</span>
+            <span class="q-tag">is_registered flag</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 03. DATA CLEANING -->
+  <section class="proj-section" id="cleaning">
+    <p class="proj-section-label"><span class="line-no">03</span> data cleaning</p>
+    <h2>Data Cleaning Process</h2>
+    <p>The cleaning script addresses four concerns in order: duplicate detection, data standardisation (whitespace trimming across all three tables), date-column conversion from text to DATETIME, and NULL value auditing. All operations run directly against the source tables. Source file: <code class="inline-code">fraud_analysis.sql</code></p>
+
+    <!-- Step 1 -->
+    <div class="cleaning-step">
+      <div class="step-num-wrap"><span class="step-num">01</span></div>
+      <div class="step-content">
+        <strong>Check for Duplicates</strong>
+        <span>A subquery wraps the full transactions table and applies ROW_NUMBER() as a window function, partitioning across every column simultaneously. Any row whose assigned number exceeds 1 is a true duplicate. Selecting * on the outer query returns the full record for inspection before any deletion decision, giving the analyst visibility into which rows are affected.</span>
+      </div>
+    </div>
+    <div class="sql-block">
+      <div class="sql-chrome">
+        <span class="sql-lang">SQL</span>
+        <span class="sql-file">fraud_analysis.sql — Step 1</span>
+        <button class="sql-copy-btn" aria-label="Copy SQL">Copy</button>
+      </div>
+      <pre class="sql-code"><code><span class="sql-kw">SELECT</span> *
+<span class="sql-kw">FROM</span>
+  (<span class="sql-kw">SELECT</span> *,
+    <span class="sql-fn">ROW_NUMBER</span>() <span class="sql-kw">OVER</span>(<span class="sql-kw">PARTITION BY</span>
+      transaction_id, account_id, transaction_date,
+      amount_ngn, merchant_id, merchant_name, merchant_category,
+      transaction_channel, transaction_location,
+      account_home_city, is_fraud, fraud_flag_reason
+    ) <span class="sql-kw">AS</span> r_num
+  <span class="sql-kw">FROM</span> transactions) <span class="sql-kw">AS</span> Duplicates
+<span class="sql-kw">WHERE</span> r_num <span class="sql-op">&gt;</span> <span class="sql-num">1</span>;</code></pre>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="cleaning-step">
+      <div class="step-num-wrap"><span class="step-num">02</span></div>
+      <div class="step-content">
+        <strong>Standardise Data — Trim Whitespace</strong>
+        <span>TRIM() is applied to every text column across all three tables in three separate UPDATE statements. Leading and trailing spaces cause silent mismatches in JOIN and GROUP BY operations: two values that look identical on screen fail to match when one carries an invisible space character. TRIM() resolves this across all tables before any analysis runs.</span>
+      </div>
+    </div>
+    <div class="sql-block">
+      <div class="sql-chrome">
+        <span class="sql-lang">SQL</span>
+        <span class="sql-file">fraud_analysis.sql — Step 2</span>
+        <button class="sql-copy-btn" aria-label="Copy SQL">Copy</button>
+      </div>
+      <pre class="sql-code"><code><span class="sql-comment">/* accounts table */</span>
+<span class="sql-kw">UPDATE</span> accounts
+<span class="sql-kw">SET</span>
+  account_id   = <span class="sql-fn">TRIM</span>(account_id),
+  city         = <span class="sql-fn">TRIM</span>(city),
+  account_type = <span class="sql-fn">TRIM</span>(account_type),
+  risk_profile = <span class="sql-fn">TRIM</span>(risk_profile);
+
+<span class="sql-comment">/* merchants table */</span>
+<span class="sql-kw">UPDATE</span> merchants
+<span class="sql-kw">SET</span>
+  merchant_id       = <span class="sql-fn">TRIM</span>(merchant_id),
+  merchant_name     = <span class="sql-fn">TRIM</span>(merchant_name),
+  merchant_category = <span class="sql-fn">TRIM</span>(merchant_category),
+  country           = <span class="sql-fn">TRIM</span>(country);
+
+<span class="sql-comment">/* transactions table */</span>
+<span class="sql-kw">UPDATE</span> transactions
+<span class="sql-kw">SET</span>
+  transaction_id       = <span class="sql-fn">TRIM</span>(transaction_id),
+  account_id           = <span class="sql-fn">TRIM</span>(account_id),
+  merchant_id          = <span class="sql-fn">TRIM</span>(merchant_id),
+  merchant_name        = <span class="sql-fn">TRIM</span>(merchant_name),
+  merchant_category    = <span class="sql-fn">TRIM</span>(merchant_category),
+  transaction_channel  = <span class="sql-fn">TRIM</span>(transaction_channel),
+  transaction_location = <span class="sql-fn">TRIM</span>(transaction_location),
+  account_home_city    = <span class="sql-fn">TRIM</span>(account_home_city),
+  fraud_flag_reason    = <span class="sql-fn">TRIM</span>(fraud_flag_reason);</code></pre>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="cleaning-step">
+      <div class="step-num-wrap"><span class="step-num">03</span></div>
+      <div class="step-content">
+        <strong>Convert Date Column from Text to DATETIME</strong>
+        <span>transaction_date was stored as a plain text string. The script converts it through a safe four-step workflow: inspect for format inconsistencies using HAVING COUNT(*) = 1 to surface dates appearing only once; add a new DATETIME column; populate it with STR_TO_DATE; verify no parse failures (STR_TO_DATE returns NULL on mismatch); then drop the original and rename the typed replacement. This preserves the original column name, keeping all downstream queries compatible.</span>
+      </div>
+    </div>
+    <div class="sql-block">
+      <div class="sql-chrome">
+        <span class="sql-lang">SQL</span>
+        <span class="sql-file">fraud_analysis.sql — Step 3</span>
+        <button class="sql-copy-btn" aria-label="Copy SQL">Copy</button>
+      </div>
+      <pre class="sql-code"><code><span class="sql-comment">/* 3a — Inspect date values for format inconsistencies */</span>
+<span class="sql-kw">SELECT</span> transaction_date, <span class="sql-fn">COUNT</span>(*) <span class="sql-kw">AS</span> occurences
+<span class="sql-kw">FROM</span> transactions
+<span class="sql-kw">GROUP BY</span> transaction_date
+<span class="sql-kw">HAVING</span> <span class="sql-fn">COUNT</span>(*) <span class="sql-op">=</span> <span class="sql-num">1</span>
+<span class="sql-kw">ORDER BY</span> transaction_date;
+
+<span class="sql-comment">/* 3b — Add and populate the new DATETIME column */</span>
+<span class="sql-kw">ALTER TABLE</span> transactions
+  <span class="sql-kw">ADD COLUMN</span> txn_date <span class="sql-kw">DATETIME</span>;
+
+<span class="sql-kw">UPDATE</span> transactions
+<span class="sql-kw">SET</span> txn_date <span class="sql-op">=</span> <span class="sql-fn">STR_TO_DATE</span>(transaction_date, <span class="sql-str">'%Y-%m-%d %H:%i:%s'</span>);
+
+<span class="sql-comment">/* 3c — Check for parse failures (NULL = format mismatch) */</span>
+<span class="sql-kw">SELECT</span> transaction_id, txn_date
+<span class="sql-kw">FROM</span> transactions
+<span class="sql-kw">WHERE</span> txn_date <span class="sql-kw">IS NULL</span>;
+
+<span class="sql-comment">/* 3d — Swap: drop original text column, rename typed replacement */</span>
+<span class="sql-kw">ALTER TABLE</span> transactions <span class="sql-kw">DROP COLUMN</span> transaction_date;
+<span class="sql-kw">ALTER TABLE</span> transactions <span class="sql-kw">RENAME COLUMN</span> txn_date <span class="sql-kw">TO</span> transaction_date;</code></pre>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="cleaning-step">
+      <div class="step-num-wrap"><span class="step-num">04</span></div>
+      <div class="step-content">
+        <strong>Audit NULL Values Across All Tables</strong>
+        <span>Three SELECT queries run a full NULL count on every column across each table. Each column gets its own CASE WHEN expression so the audit arrives as a single summary row, covering all columns in one pass. SUM(CASE WHEN ... IS NULL THEN 1 ELSE 0 END) converts each NULL check to a binary integer per row, then sums across all rows — faster to read than running one query per column.</span>
+      </div>
+    </div>
+    <div class="sql-block">
+      <div class="sql-chrome">
+        <span class="sql-lang">SQL</span>
+        <span class="sql-file">fraud_analysis.sql — Step 4</span>
+        <button class="sql-copy-btn" aria-label="Copy SQL">Copy</button>
+      </div>
+      <pre class="sql-code"><code><span class="sql-comment">/* accounts table */</span>
+<span class="sql-kw">SELECT</span>
+  <span class="sql-fn">SUM</span>(<span class="sql-kw">CASE WHEN</span> account_id          <span class="sql-kw">IS NULL THEN</span> <span class="sql-num">1</span> <span class="sql-kw">ELSE</span> <span class="sql-num">0</span> <span class="sql-kw">END</span>) <span class="sql-kw">AS</span> null_id,
+  <span class="sql-fn">SUM</span>(<span class="sql-kw">CASE WHEN</span> age                 <span class="sql-kw">IS NULL THEN</span> <span class="sql-num">1</span> <span class="sql-kw">ELSE</span> <span class="sql-num">0</span> <span class="sql-kw">END</span>) <span class="sql-kw">AS</span> null_age,
+  <span class="sql-fn">SUM</span>(<span class="sql-kw">CASE WHEN</span> city                <span class="sql-kw">IS NULL THEN</span> <span class="sql-num">1</span> <span class="sql-kw">ELSE</span> <span class="sql-num">0</span> <span class="sql-kw">END</span>) <span class="sql-kw">AS</span> null_city,
+  <span class="sql-fn">SUM</span>(<span class="sql-kw">CASE WHEN</span> account_type        <span class="sql-kw">IS NULL THEN</span> <span class="sql-num">1</span> <span class="sql-kw">ELSE</span> <span class="sql-num">0</span> <span class="sql-kw">END</span>) <span class="sql-kw">AS</span> null_acc_type,
+  <span class="sql-fn">SUM</span>(<span class="sql-kw">CASE WHEN</span> avg_monthly_balance <span class="sql-kw">IS NULL THEN</span> <span class="sql-num">1</span> <span class="sql-kw">ELSE</span> <span class="sql-num">0</span> <span class="sql-kw">END</span>) <span class="sql-kw">AS</span> null_bal,
+  <span class="sql-fn">SUM</span>(<span class="sql-kw">CASE WHEN</span> risk_profile        <span class="sql-kw">IS NULL THEN</span> <span class="sql-num">1</span> <span class="sql-kw">ELSE</span> <span class="sql-num">0</span> <span class="sql-kw">END</span>) <span class="sql-kw">AS</span> null_risk_profile
+<span class="sql-kw">FROM</span> accounts;
+
+<span class="sql-comment">/* merchants table */</span>
+<span class="sql-kw">SELECT</span>
+  <span class="sql-fn">SUM</span>(<span class="sql-kw">CASE WHEN</span> merchant_id       <span class="sql-kw">IS NULL THEN</span> <span class="sql-num">1</span> <span class="sql-kw">ELSE</span> <span class="sql-num">0</span> <span class="sql-kw">END</span>) <span class="sql-kw">AS</span> null_id,
+  <span class="sql-fn">SUM</span>(<span class="sql-kw">CASE WHEN</span> merchant_name     <span class="sql-kw">IS NULL THEN</span> <span class="sql-num">1</span> <span class="sql-kw">ELSE</span> <span class="sql-num">0</span> <span class="sql-kw">END</span>) <span class="sql-kw">AS</span> null_name,
+  <span class="sql-fn">SUM</span>(<span class="sql-kw">CASE WHEN</span> merchant_category <span class="sql-kw">IS NULL THEN</span> <span class="sql-num">1</span> <span class="sql-kw">ELSE</span> <span class="sql-num">0</span> <span class="sql-kw">END</span>) <span class="sql-kw">AS</span> null_category,
+  <span class="sql-fn">SUM</span>(<span class="sql-kw">CASE WHEN</span> is_registered     <span class="sql-kw">IS NULL THEN</span> <span class="sql-num">1</span> <span class="sql-kw">ELSE</span> <span class="sql-num">0</span> <span class="sql-kw">END</span>) <span class="sql-kw">AS</span> null_register,
+  <span class="sql-fn">SUM</span>(<span class="sql-kw">CASE WHEN</span> country           <span class="sql-kw">IS NULL THEN</span> <span class="sql-num">1</span> <span class="sql-kw">ELSE</span> <span class="sql-num">0</span> <span class="sql-kw">END</span>) <span class="sql-kw">AS</span> null_country
+<span class="sql-kw">FROM</span> merchants;
+
+<span class="sql-comment">/* transactions table */</span>
+<span class="sql-kw">SELECT</span>
+  <span class="sql-fn">SUM</span>(<span class="sql-kw">CASE WHEN</span> transaction_id       <span class="sql-kw">IS NULL THEN</span> <span class="sql-num">1</span> <span class="sql-kw">ELSE</span> <span class="sql-num">0</span> <span class="sql-kw">END</span>) <span class="sql-kw">AS</span> null_id,
+  <span class="sql-fn">SUM</span>(<span class="sql-kw">CASE WHEN</span> account_id           <span class="sql-kw">IS NULL THEN</span> <span class="sql-num">1</span> <span class="sql-kw">ELSE</span> <span class="sql-num">0</span> <span class="sql-kw">END</span>) <span class="sql-kw">AS</span> null_acc_id,
+  <span class="sql-fn">SUM</span>(<span class="sql-kw">CASE WHEN</span> merchant_id          <span class="sql-kw">IS NULL THEN</span> <span class="sql-num">1</span> <span class="sql-kw">ELSE</span> <span class="sql-num">0</span> <span class="sql-kw">END</span>) <span class="sql-kw">AS</span> null_merch_id,
+  <span class="sql-fn">SUM</span>(<span class="sql-kw">CASE WHEN</span> merchant_name        <span class="sql-kw">IS NULL THEN</span> <span class="sql-num">1</span> <span class="sql-kw">ELSE</span> <span class="sql-num">0</span> <span class="sql-kw">END</span>) <span class="sql-kw">AS</span> null_name,
+  <span class="sql-fn">SUM</span>(<span class="sql-kw">CASE WHEN</span> merchant_category    <span class="sql-kw">IS NULL THEN</span> <span class="sql-num">1</span> <span class="sql-kw">ELSE</span> <span class="sql-num">0</span> <span class="sql-kw">END</span>) <span class="sql-kw">AS</span> null_category,
+  <span class="sql-fn">SUM</span>(<span class="sql-kw">CASE WHEN</span> transaction_channel  <span class="sql-kw">IS NULL THEN</span> <span class="sql-num">1</span> <span class="sql-kw">ELSE</span> <span class="sql-num">0</span> <span class="sql-kw">END</span>) <span class="sql-kw">AS</span> null_channel,
+  <span class="sql-fn">SUM</span>(<span class="sql-kw">CASE WHEN</span> transaction_location <span class="sql-kw">IS NULL THEN</span> <span class="sql-num">1</span> <span class="sql-kw">ELSE</span> <span class="sql-num">0</span> <span class="sql-kw">END</span>) <span class="sql-kw">AS</span> null_location,
+  <span class="sql-fn">SUM</span>(<span class="sql-kw">CASE WHEN</span> account_home_city    <span class="sql-kw">IS NULL THEN</span> <span class="sql-num">1</span> <span class="sql-kw">ELSE</span> <span class="sql-num">0</span> <span class="sql-kw">END</span>) <span class="sql-kw">AS</span> null_home,
+  <span class="sql-fn">SUM</span>(<span class="sql-kw">CASE WHEN</span> is_fraud             <span class="sql-kw">IS NULL THEN</span> <span class="sql-num">1</span> <span class="sql-kw">ELSE</span> <span class="sql-num">0</span> <span class="sql-kw">END</span>) <span class="sql-kw">AS</span> null_fraud,
+  <span class="sql-fn">SUM</span>(<span class="sql-kw">CASE WHEN</span> fraud_flag_reason    <span class="sql-kw">IS NULL THEN</span> <span class="sql-num">1</span> <span class="sql-kw">ELSE</span> <span class="sql-num">0</span> <span class="sql-kw">END</span>) <span class="sql-kw">AS</span> null_reason,
+  <span class="sql-fn">SUM</span>(<span class="sql-kw">CASE WHEN</span> transaction_date     <span class="sql-kw">IS NULL THEN</span> <span class="sql-num">1</span> <span class="sql-kw">ELSE</span> <span class="sql-num">0</span> <span class="sql-kw">END</span>) <span class="sql-kw">AS</span> null_date
+<span class="sql-kw">FROM</span> transactions;</code></pre>
+    </div>
+  </section>
+
+  <!-- 04. METRICS -->
+  <section class="proj-section" id="metrics">
+    <p class="proj-section-label"><span class="line-no">04</span> metrics per question</p>
+    <h2>Metrics Used Per Question &amp; Why</h2>
+    <p>Every metric was chosen to answer a specific sub-question precisely. The most important recurring choice is using rate rather than raw count when comparing segments of different sizes. A segment with 500 transactions and 50 fraud events has the same 10% rate as one with 50 transactions and 5 events, but their raw counts look 10x different. Rate-based comparison is the only fair basis across unequal segment sizes.</p>
+
+    <!-- Q1 -->
+    <div class="metric-block">
+      <div class="metric-header">
+        <span class="metric-badge">Q1</span>
+        <span class="metric-title">Fraud Rate by Account Segment, Risk Profile &amp; Channel</span>
+      </div>
+      <div class="metric-body">
+        <div class="metric-row">
+          <span class="metric-name">Fraud rate</span>
+          <span class="metric-why"><code class="inline-code">100 * SUM(CASE WHEN is_fraud=1 THEN 1 ELSE 0 END) / COUNT(*)</code>. Normalises fraud occurrence to segment size, making Savings, Current, and Salary accounts directly comparable regardless of how many customers each type holds. Raw fraud counts would make larger segments appear riskier by default.</span>
+        </div>
+        <div class="metric-row">
+          <span class="metric-name">Total transaction value</span>
+          <span class="metric-why"><code class="inline-code">ROUND(SUM(amount_ngn), 2)</code>. Establishes the full monetary base of each segment or channel. Serves as the denominator for the fraud value share percentage, grounding rate comparisons in real naira amounts rather than transaction counts alone.</span>
+        </div>
+        <div class="metric-row">
+          <span class="metric-name">Fraud transaction value</span>
+          <span class="metric-why"><code class="inline-code">SUM(amount_ngn) WHERE is_fraud = 1</code> via correlated subquery. Isolates monetary value flowing through confirmed fraud cases only, calculated separately from the main aggregate so the filter condition can differ from the outer query's context.</span>
+        </div>
+        <div class="metric-row">
+          <span class="metric-name">Fraud value share (%)</span>
+          <span class="metric-why"><code class="inline-code">100 * fraud_value / total_value</code>. Converts transaction volume into monetary exposure per segment. A segment with a moderate fraud rate but high-value transactions loses more money than a high-rate, low-value one. This metric surfaces that difference and is the most financially consequential number in Q1.</span>
+        </div>
+      </div>
+      <div class="sql-block">
+        <div class="sql-chrome">
+          <span class="sql-lang">SQL</span>
+          <span class="sql-file">fraud_analysis_question1.sql</span>
+          <button class="sql-copy-btn" aria-label="Copy SQL">Copy</button>
+        </div>
+        <pre class="sql-code"><code><span class="sql-comment">/* Referential integrity check before joining */</span>
+<span class="sql-kw">SELECT</span>
+  a.account_id <span class="sql-kw">AS</span> accts_id,
+  t.account_id <span class="sql-kw">AS</span> txns_id
+<span class="sql-kw">FROM</span> accounts a
+  <span class="sql-kw">JOIN</span> transactions t <span class="sql-kw">ON</span> a.account_id <span class="sql-op">=</span> t.account_id
+<span class="sql-kw">WHERE</span> t.account_id <span class="sql-kw">NOT IN</span> (<span class="sql-kw">SELECT</span> a.account_id <span class="sql-kw">FROM</span> accounts)
+   <span class="sql-kw">OR</span> a.account_id <span class="sql-kw">NOT IN</span> (<span class="sql-kw">SELECT</span> t.account_id <span class="sql-kw">FROM</span> transactions);
+
+<span class="sql-comment">/* Fraud rate by account type */</span>
+<span class="sql-kw">SELECT</span> account_type,
+  <span class="sql-fn">ROUND</span>(<span class="sql-num">100</span> <span class="sql-op">*</span> <span class="sql-fn">SUM</span>(<span class="sql-kw">CASE WHEN</span> is_fraud <span class="sql-op">=</span> <span class="sql-num">1</span> <span class="sql-kw">THEN</span> <span class="sql-num">1</span> <span class="sql-kw">ELSE</span> <span class="sql-num">0</span> <span class="sql-kw">END</span>) <span class="sql-op">/</span> <span class="sql-fn">COUNT</span>(*), <span class="sql-num">2</span>) <span class="sql-kw">AS</span> fraud_rate
+<span class="sql-kw">FROM</span> accounts a
+  <span class="sql-kw">JOIN</span> transactions t <span class="sql-kw">ON</span> a.account_id <span class="sql-op">=</span> t.account_id
+<span class="sql-kw">GROUP BY</span> account_type
+<span class="sql-kw">ORDER BY</span> fraud_rate <span class="sql-kw">DESC</span>;
+
+<span class="sql-comment">/* Fraud rate by risk profile */</span>
+<span class="sql-kw">SELECT</span> risk_profile,
+  <span class="sql-fn">ROUND</span>(<span class="sql-num">100</span> <span class="sql-op">*</span> <span class="sql-fn">SUM</span>(<span class="sql-kw">CASE WHEN</span> is_fraud <span class="sql-op">=</span> <span class="sql-num">1</span> <span class="sql-kw">THEN</span> <span class="sql-num">1</span> <span class="sql-kw">ELSE</span> <span class="sql-num">0</span> <span class="sql-kw">END</span>) <span class="sql-op">/</span> <span class="sql-fn">COUNT</span>(*), <span class="sql-num">2</span>) <span class="sql-kw">AS</span> fraud_rate
+<span class="sql-kw">FROM</span> accounts a
+  <span class="sql-kw">JOIN</span> transactions t <span class="sql-kw">ON</span> a.account_id <span class="sql-op">=</span> t.account_id
+<span class="sql-kw">GROUP BY</span> risk_profile
+<span class="sql-kw">ORDER BY</span> fraud_rate <span class="sql-kw">DESC</span>;
+
+<span class="sql-comment">/* Fraud rate by transaction channel */</span>
+<span class="sql-kw">SELECT</span> transaction_channel,
+  <span class="sql-fn">ROUND</span>(<span class="sql-num">100</span> <span class="sql-op">*</span> <span class="sql-fn">SUM</span>(<span class="sql-kw">CASE WHEN</span> is_fraud <span class="sql-op">=</span> <span class="sql-num">1</span> <span class="sql-kw">THEN</span> <span class="sql-num">1</span> <span class="sql-kw">ELSE</span> <span class="sql-num">0</span> <span class="sql-kw">END</span>) <span class="sql-op">/</span> <span class="sql-fn">COUNT</span>(*), <span class="sql-num">2</span>) <span class="sql-kw">AS</span> fraud_rate
+<span class="sql-kw">FROM</span> accounts a
+  <span class="sql-kw">JOIN</span> transactions t <span class="sql-kw">ON</span> a.account_id <span class="sql-op">=</span> t.account_id
+<span class="sql-kw">GROUP BY</span> transaction_channel
+<span class="sql-kw">ORDER BY</span> fraud_rate <span class="sql-kw">DESC</span>;
+
+<span class="sql-comment">/* Fraud value as % of total transaction value */</span>
+<span class="sql-kw">SELECT</span>
+  <span class="sql-fn">ROUND</span>((<span class="sql-num">100</span> <span class="sql-op">*</span> (<span class="sql-kw">SELECT</span> <span class="sql-fn">ROUND</span>(<span class="sql-fn">SUM</span>(amount_ngn), <span class="sql-num">2</span>)
+                 <span class="sql-kw">FROM</span> transactions <span class="sql-kw">WHERE</span> is_fraud <span class="sql-op">=</span> <span class="sql-num">1</span>))
+    <span class="sql-op">/</span> <span class="sql-fn">ROUND</span>(<span class="sql-fn">SUM</span>(amount_ngn), <span class="sql-num">2</span>), <span class="sql-num">2</span>) <span class="sql-kw">AS</span> Fraud_txns_val_pct
+<span class="sql-kw">FROM</span> transactions;
+
+<span class="sql-comment">/* Fraud value share by channel */</span>
+<span class="sql-kw">SELECT</span> transaction_channel,
+  <span class="sql-fn">CONCAT</span>(<span class="sql-fn">ROUND</span>((<span class="sql-num">100</span> <span class="sql-op">*</span> (<span class="sql-kw">SELECT</span> <span class="sql-fn">ROUND</span>(<span class="sql-fn">SUM</span>(amount_ngn), <span class="sql-num">2</span>)
+                       <span class="sql-kw">FROM</span> transactions <span class="sql-kw">WHERE</span> is_fraud <span class="sql-op">=</span> <span class="sql-num">1</span>))
+    <span class="sql-op">/</span> <span class="sql-fn">ROUND</span>(<span class="sql-fn">SUM</span>(amount_ngn), <span class="sql-num">2</span>), <span class="sql-num">2</span>), <span class="sql-str">'%'</span>) <span class="sql-kw">AS</span> Fraud_txns_vol_pct
+<span class="sql-kw">FROM</span> accounts a
+  <span class="sql-kw">JOIN</span> transactions t <span class="sql-kw">ON</span> a.account_id <span class="sql-op">=</span> t.account_id
+<span class="sql-kw">GROUP BY</span> transaction_channel
+<span class="sql-kw">ORDER BY</span> Fraud_txns_vol_pct <span class="sql-kw">DESC</span>;</code></pre>
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="metric-block">
+      <div class="metric-header">
+        <span class="metric-badge">Q2</span>
+        <span class="metric-title">Fraud Pattern Breakdown</span>
+      </div>
+      <div class="metric-body">
+        <div class="metric-row">
+          <span class="metric-name">Fraud count</span>
+          <span class="metric-why"><code class="inline-code">COUNT(*)</code> per fraud pattern. Raw frequency showing which attack method appears most often in the flagged population. The primary ranking dimension for the fraud team to decide where to tighten detection rules first.</span>
+        </div>
+        <div class="metric-row">
+          <span class="metric-name">% of all fraud</span>
+          <span class="metric-why"><code class="inline-code">COUNT(*) / SUM(COUNT(*)) OVER() * 100</code>. A window function computes the grand total in the same GROUP BY pass, giving each pattern's share without a subquery or second table scan. More efficient and less error-prone than a correlated subquery on a filtered dataset.</span>
+        </div>
+        <div class="metric-row">
+          <span class="metric-name">Total transacted</span>
+          <span class="metric-why"><code class="inline-code">SUM(amount_ngn)</code> per fraud type. Total monetary exposure per pattern. High-value, low-count patterns are invisible on a frequency-only view; this column surfaces them alongside count for a complete picture.</span>
+        </div>
+        <div class="metric-row">
+          <span class="metric-name">Avg amount per transaction</span>
+          <span class="metric-why"><code class="inline-code">AVG(amount_ngn)</code> per fraud type. Typical transaction size. A high average signals larger single-incident losses and directly guides where to set monetary alert thresholds in detection rules.</span>
+        </div>
+        <div class="metric-row">
+          <span class="metric-name">Max / Min amount</span>
+          <span class="metric-why"><code class="inline-code">MAX(amount_ngn)</code> and <code class="inline-code">MIN(amount_ngn)</code>. Reveals range and outliers within each pattern. A large gap between max and min signals one fraud type covers a wide spread of sizes, meaning a single fixed threshold would produce false positives at the low end or miss events at the high end.</span>
+        </div>
+      </div>
+      <div class="sql-block">
+        <div class="sql-chrome">
+          <span class="sql-lang">SQL</span>
+          <span class="sql-file">fraud_analysis_question2.sql</span>
+          <button class="sql-copy-btn" aria-label="Copy SQL">Copy</button>
+        </div>
+        <pre class="sql-code"><code><span class="sql-comment">/* Transaction count and amounts by fraud type */</span>
+<span class="sql-kw">SELECT</span>
+  fraud_flag_reason,
+  <span class="sql-fn">COUNT</span>(*) <span class="sql-kw">AS</span> Fraud_count,
+  <span class="sql-fn">CONCAT</span>(<span class="sql-fn">ROUND</span>(<span class="sql-fn">COUNT</span>(*) <span class="sql-op">/</span> <span class="sql-fn">SUM</span>(<span class="sql-fn">COUNT</span>(*)) <span class="sql-kw">OVER</span>() <span class="sql-op">*</span> <span class="sql-num">100</span>, <span class="sql-num">2</span>), <span class="sql-str">'%'</span>) <span class="sql-kw">AS</span> pct_of_all_fraud,
+  <span class="sql-fn">ROUND</span>(<span class="sql-fn">SUM</span>(amount_ngn), <span class="sql-num">2</span>)  <span class="sql-kw">AS</span> total_transacted,
+  <span class="sql-fn">ROUND</span>(<span class="sql-fn">AVG</span>(amount_ngn), <span class="sql-num">2</span>)  <span class="sql-kw">AS</span> avg_amt_per_txn,
+  <span class="sql-fn">ROUND</span>(<span class="sql-fn">MAX</span>(amount_ngn), <span class="sql-num">2</span>)  <span class="sql-kw">AS</span> maximum_amt_per_fraud_type,
+  <span class="sql-fn">ROUND</span>(<span class="sql-fn">MIN</span>(amount_ngn), <span class="sql-num">2</span>)  <span class="sql-kw">AS</span> minimum_amt_per_fraud_type
+<span class="sql-kw">FROM</span> transactions
+<span class="sql-kw">WHERE</span> is_fraud <span class="sql-op">=</span> <span class="sql-num">1</span>
+<span class="sql-kw">GROUP BY</span> fraud_flag_reason
+<span class="sql-kw">ORDER BY</span> Fraud_count <span class="sql-kw">DESC</span>;</code></pre>
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="metric-block">
+      <div class="metric-header">
+        <span class="metric-badge">Q3</span>
+        <span class="metric-title">High-Risk / Repeat Offender Accounts</span>
+      </div>
+      <div class="metric-body">
+        <div class="metric-row">
+          <span class="metric-name">Total fraud transactions</span>
+          <span class="metric-why"><code class="inline-code">COUNT(*) WHERE is_fraud = 1 GROUP BY account_id</code>. Counts fraud events per account. The filter <code class="inline-code">Total_fraud_txns &gt; 1</code> in the repeat_offenders CTE defines the watchlist threshold: two or more events signal either an unresolved breach or a deliberate bad actor.</span>
+        </div>
+        <div class="metric-row">
+          <span class="metric-name">Avg legitimate amount</span>
+          <span class="metric-why"><code class="inline-code">AVG(amount_ngn) WHERE is_fraud = 0</code> per repeat-offender account. Establishes the normal spending baseline. Serves as the denominator in the ratio and as the reference point for fraud transaction sizes. Restricting to is_fraud = 0 ensures the baseline reflects only genuine account behaviour.</span>
+        </div>
+        <div class="metric-row">
+          <span class="metric-name">Avg fraud amount</span>
+          <span class="metric-why">Correlated subquery: <code class="inline-code">AVG(amount_ngn) WHERE is_fraud = 1</code> per account. Computed separately from the legitimate average using a correlated subquery, so both values can appear in the same output row despite requiring opposite filter conditions.</span>
+        </div>
+        <div class="metric-row">
+          <span class="metric-name">Fraud-to-legit ratio</span>
+          <span class="metric-why"><code class="inline-code">avg_fraud_amt / NULLIF(avg_legit_amt, 0)</code>. A ratio above 1.0 means fraud transactions are larger than the account's own normal spending: the primary indicator of external account takeover rather than owner misconduct. NULLIF prevents a division-by-zero error where an account has no legitimate transaction history.</span>
+        </div>
+        <div class="metric-row">
+          <span class="metric-name">Channels used</span>
+          <span class="metric-why"><code class="inline-code">GROUP_CONCAT(DISTINCT channel ORDER BY channel SEPARATOR ', ')</code>. Collapses the full fraud channel list into one readable cell per account. DISTINCT removes repetitions when the same channel was used in multiple fraud events on the same account.</span>
+        </div>
+      </div>
+      <div class="sql-block">
+        <div class="sql-chrome">
+          <span class="sql-lang">SQL</span>
+          <span class="sql-file">fraud_analysis_question3.sql</span>
+          <button class="sql-copy-btn" aria-label="Copy SQL">Copy</button>
+        </div>
+        <pre class="sql-code"><code><span class="sql-kw">WITH</span> fraud_count <span class="sql-kw">AS</span> (
+  <span class="sql-kw">SELECT</span> account_id, <span class="sql-fn">COUNT</span>(*) <span class="sql-kw">AS</span> Total_fraud_txns
+  <span class="sql-kw">FROM</span> transactions
+  <span class="sql-kw">WHERE</span> is_fraud <span class="sql-op">=</span> <span class="sql-num">1</span>
+  <span class="sql-kw">GROUP BY</span> account_id
+),
+repeat_offenders <span class="sql-kw">AS</span> (
+  <span class="sql-kw">SELECT</span> account_id, Total_fraud_txns
+  <span class="sql-kw">FROM</span> fraud_count
+  <span class="sql-kw">WHERE</span> Total_fraud_txns <span class="sql-op">&gt;</span> <span class="sql-num">1</span>
+),
+avg_legit_txn_amt <span class="sql-kw">AS</span> (
+  <span class="sql-kw">SELECT</span> t.account_id,
+    <span class="sql-fn">ROUND</span>(<span class="sql-fn">AVG</span>(t.amount_ngn), <span class="sql-num">2</span>) <span class="sql-kw">AS</span> avg_legit_amt
+  <span class="sql-kw">FROM</span> transactions t
+    <span class="sql-kw">JOIN</span> repeat_offenders ro <span class="sql-kw">ON</span> t.account_id <span class="sql-op">=</span> ro.account_id
+  <span class="sql-kw">WHERE</span> is_fraud <span class="sql-op">=</span> <span class="sql-num">0</span>
+  <span class="sql-kw">GROUP BY</span> account_id
+),
+channels_used <span class="sql-kw">AS</span> (
+  <span class="sql-kw">SELECT</span> t.account_id,
+    <span class="sql-fn">GROUP_CONCAT</span>(<span class="sql-kw">DISTINCT</span> t.transaction_channel
+      <span class="sql-kw">ORDER BY</span> t.transaction_channel <span class="sql-kw">SEPARATOR</span> <span class="sql-str">', '</span>) <span class="sql-kw">AS</span> channels
+  <span class="sql-kw">FROM</span> transactions t
+    <span class="sql-kw">JOIN</span> repeat_offenders ro <span class="sql-kw">ON</span> t.account_id <span class="sql-op">=</span> ro.account_id
+  <span class="sql-kw">WHERE</span> is_fraud <span class="sql-op">=</span> <span class="sql-num">1</span>
+  <span class="sql-kw">GROUP BY</span> account_id
+)
+<span class="sql-kw">SELECT</span>
+  ro.account_id, a.account_type, a.risk_profile,
+  ro.Total_fraud_txns, cu.channels, al.avg_legit_amt,
+  <span class="sql-fn">ROUND</span>((<span class="sql-kw">SELECT</span> <span class="sql-fn">AVG</span>(amount_ngn) <span class="sql-kw">FROM</span> transactions t
+    <span class="sql-kw">WHERE</span> t.account_id <span class="sql-op">=</span> ro.account_id <span class="sql-kw">AND</span> is_fraud <span class="sql-op">=</span> <span class="sql-num">1</span>), <span class="sql-num">2</span>) <span class="sql-kw">AS</span> avg_fraud_txn_amt,
+  <span class="sql-fn">ROUND</span>((<span class="sql-kw">SELECT</span> <span class="sql-fn">AVG</span>(amount_ngn) <span class="sql-kw">FROM</span> transactions t
+    <span class="sql-kw">WHERE</span> t.account_id <span class="sql-op">=</span> ro.account_id <span class="sql-kw">AND</span> is_fraud <span class="sql-op">=</span> <span class="sql-num">1</span>)
+    <span class="sql-op">/</span> <span class="sql-fn">NULLIF</span>(al.avg_legit_amt, <span class="sql-num">0</span>), <span class="sql-num">2</span>) <span class="sql-kw">AS</span> Fraud_to_legit_ratio
+<span class="sql-kw">FROM</span> repeat_offenders ro
+  <span class="sql-kw">JOIN</span> accounts a           <span class="sql-kw">ON</span> ro.account_id <span class="sql-op">=</span> a.account_id
+  <span class="sql-kw">JOIN</span> avg_legit_txn_amt al <span class="sql-kw">ON</span> ro.account_id <span class="sql-op">=</span> al.account_id
+  <span class="sql-kw">JOIN</span> channels_used cu     <span class="sql-kw">ON</span> ro.account_id <span class="sql-op">=</span> cu.account_id
+<span class="sql-kw">ORDER BY</span> Total_fraud_txns;</code></pre>
+      </div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="metric-block">
+      <div class="metric-header">
+        <span class="metric-badge">Q4</span>
+        <span class="metric-title">Merchant &amp; Channel Exposure</span>
+      </div>
+      <div class="metric-body">
+        <div class="metric-row">
+          <span class="metric-name">Channel fraud %</span>
+          <span class="metric-why"><code class="inline-code">100 * Fraud_amt / Total_amt</code> per channel. Two separate CTEs compute total and fraud channel amounts independently, then join. This allows different WHERE conditions per CTE without a single large conditional aggregation that is harder to audit or maintain.</span>
+        </div>
+        <div class="metric-row">
+          <span class="metric-name">Merchant accounts</span>
+          <span class="metric-why"><code class="inline-code">GROUP_CONCAT(DISTINCT account_id ORDER BY account_id SEPARATOR ', ')</code>. Lists every account that transacted fraudulently at this merchant. Reveals whether fraud comes from one bad actor or spans multiple customers, distinguishing a single-account compromise from a merchant-level scheme.</span>
+        </div>
+        <div class="metric-row">
+          <span class="metric-name">No. of accounts</span>
+          <span class="metric-why"><code class="inline-code">COUNT(DISTINCT account_id)</code>. A higher count means fraud at this merchant affects a broader share of the customer base. Used as the primary ORDER BY key to surface the widest-impact merchants first rather than the highest-value ones.</span>
+        </div>
+        <div class="metric-row">
+          <span class="metric-name">Fraud composition %</span>
+          <span class="metric-why"><code class="inline-code">100 * Fraud_amt / Total_amt</code> per merchant via correlated subqueries. Primary merchant risk signal. A value near 100% means the merchant processes almost no legitimate transactions and should be blocked outright. Correlated subqueries allow total and fraud amounts to share different WHERE conditions in the same SELECT list.</span>
+        </div>
+      </div>
+      <div class="sql-block">
+        <div class="sql-chrome">
+          <span class="sql-lang">SQL</span>
+          <span class="sql-file">fraud_analysis_question4.sql</span>
+          <button class="sql-copy-btn" aria-label="Copy SQL">Copy</button>
+        </div>
+        <pre class="sql-code"><code><span class="sql-comment">/* Channel exposure */</span>
+<span class="sql-kw">WITH</span> total_amt_per_channel <span class="sql-kw">AS</span> (
+  <span class="sql-kw">SELECT</span> transaction_channel,
+    <span class="sql-fn">ROUND</span>(<span class="sql-fn">SUM</span>(amount_ngn), <span class="sql-num">2</span>) <span class="sql-kw">AS</span> Total_amt
+  <span class="sql-kw">FROM</span> transactions
+  <span class="sql-kw">GROUP BY</span> transaction_channel
+),
+fraud_amt_per_channel <span class="sql-kw">AS</span> (
+  <span class="sql-kw">SELECT</span> transaction_channel,
+    <span class="sql-fn">ROUND</span>(<span class="sql-fn">SUM</span>(amount_ngn), <span class="sql-num">2</span>) <span class="sql-kw">AS</span> Fraud_amt
+  <span class="sql-kw">FROM</span> transactions
+  <span class="sql-kw">WHERE</span> is_fraud <span class="sql-op">=</span> <span class="sql-num">1</span>
+  <span class="sql-kw">GROUP BY</span> transaction_channel
+)
+<span class="sql-kw">SELECT</span>
+  tc.transaction_channel,
+  tc.Total_amt,
+  fc.Fraud_amt,
+  <span class="sql-fn">ROUND</span>(<span class="sql-num">100</span> <span class="sql-op">*</span> fc.Fraud_amt <span class="sql-op">/</span> tc.Total_amt, <span class="sql-num">2</span>) <span class="sql-kw">AS</span> Fraud_pct
+<span class="sql-kw">FROM</span> total_amt_per_channel tc
+  <span class="sql-kw">JOIN</span> fraud_amt_per_channel fc
+    <span class="sql-kw">ON</span> tc.transaction_channel <span class="sql-op">=</span> fc.transaction_channel;
+
+<span class="sql-comment">/* Merchant exposure */</span>
+<span class="sql-kw">SELECT</span>
+  m.merchant_name, m.merchant_id, m.is_registered,
+  <span class="sql-fn">GROUP_CONCAT</span>(<span class="sql-kw">DISTINCT</span> t.account_id
+    <span class="sql-kw">ORDER BY</span> t.account_id <span class="sql-kw">SEPARATOR</span> <span class="sql-str">', '</span>) <span class="sql-kw">AS</span> merchant_accounts,
+  <span class="sql-fn">GROUP_CONCAT</span>(<span class="sql-kw">DISTINCT</span> t.transaction_channel
+    <span class="sql-kw">ORDER BY</span> t.transaction_channel <span class="sql-kw">SEPARATOR</span> <span class="sql-str">', '</span>) <span class="sql-kw">AS</span> Channels_Used,
+  <span class="sql-fn">COUNT</span>(<span class="sql-kw">DISTINCT</span> t.account_id)  <span class="sql-kw">AS</span> No_of_accts,
+  <span class="sql-fn">ROUND</span>((<span class="sql-kw">SELECT</span> <span class="sql-fn">SUM</span>(t.amount_ngn) <span class="sql-kw">FROM</span> transactions t
+    <span class="sql-kw">WHERE</span> t.merchant_id <span class="sql-op">=</span> m.merchant_id), <span class="sql-num">2</span>) <span class="sql-kw">AS</span> Total_amt,
+  <span class="sql-fn">ROUND</span>((<span class="sql-kw">SELECT</span> <span class="sql-fn">SUM</span>(t.amount_ngn) <span class="sql-kw">FROM</span> transactions t
+    <span class="sql-kw">WHERE</span> t.merchant_id <span class="sql-op">=</span> m.merchant_id <span class="sql-kw">AND</span> is_fraud <span class="sql-op">=</span> <span class="sql-num">1</span>), <span class="sql-num">2</span>) <span class="sql-kw">AS</span> Fraud_amt,
+  <span class="sql-fn">ROUND</span>((<span class="sql-num">100</span> <span class="sql-op">*</span>
+    (<span class="sql-kw">SELECT</span> <span class="sql-fn">SUM</span>(t.amount_ngn) <span class="sql-kw">FROM</span> transactions t
+      <span class="sql-kw">WHERE</span> t.merchant_id <span class="sql-op">=</span> m.merchant_id <span class="sql-kw">AND</span> is_fraud <span class="sql-op">=</span> <span class="sql-num">1</span>) <span class="sql-op">/</span>
+    (<span class="sql-kw">SELECT</span> <span class="sql-fn">SUM</span>(t.amount_ngn) <span class="sql-kw">FROM</span> transactions t
+      <span class="sql-kw">WHERE</span> t.merchant_id <span class="sql-op">=</span> m.merchant_id)), <span class="sql-num">2</span>) <span class="sql-kw">AS</span> Pct_Fraud_comp
+<span class="sql-kw">FROM</span> transactions t
+  <span class="sql-kw">JOIN</span> merchants m <span class="sql-kw">ON</span> t.merchant_id  <span class="sql-op">=</span> m.merchant_id
+  <span class="sql-kw">JOIN</span> accounts a  <span class="sql-kw">ON</span> t.account_id   <span class="sql-op">=</span> a.account_id
+<span class="sql-kw">WHERE</span> t.is_fraud <span class="sql-op">=</span> <span class="sql-num">1</span>
+<span class="sql-kw">GROUP BY</span> m.merchant_name, m.merchant_id, m.is_registered
+<span class="sql-kw">ORDER BY</span> No_of_accts <span class="sql-kw">DESC</span>;</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05. INSIGHTS -->
+  <section class="proj-section" id="insights">
+    <p class="proj-section-label"><span class="line-no">05</span> insights</p>
+    <h2>Insights Per Question</h2>
+
+    <p class="q-label-accent">Q1 — Fraud Rate by Account Segment, Risk Profile &amp; Channel</p>
+    <div class="insight-grid mb-lg">
+      <div class="insight-card">
+        <div class="i-label">Highest Rate by Account Type</div>
+        <div class="i-value">Current Accounts</div>
+        <div class="i-desc">Current accounts carry the highest fraud rate. Higher transfer limits make them more attractive targets for large fraudulent transactions than Savings or Salary accounts.</div>
+      </div>
+      <div class="insight-card">
+        <div class="i-label">Risk Profile Finding</div>
+        <div class="i-value">High Risk leads; Medium does most damage</div>
+        <div class="i-desc">High-risk accounts record the highest per-segment fraud rate, confirming the bank's classification has some predictive power. But Medium-risk accounts generate more total fraud cases simply because that segment is significantly larger.</div>
+      </div>
+      <div class="insight-card">
+        <div class="i-label">Most Dangerous Channels</div>
+        <div class="i-value">Web &amp; Mobile App</div>
+        <div class="i-desc">Web and Mobile App post the highest fraud rates among all channels, confirming digital card-not-present transactions as the primary attack surface across the portfolio.</div>
+      </div>
+      <div class="insight-card">
+        <div class="i-label">Value vs. Count</div>
+        <div class="i-value">Value share exceeds count share</div>
+        <div class="i-desc">Fraud's share of total transaction value exceeds its share of transaction count. Fraudulent transactions are on average larger than legitimate ones, making the financial damage disproportionate to the number of cases.</div>
+      </div>
+    </div>
+    <div class="insight-callout mb-lg">
+      <span class="callout-icon">→</span>
+      <p>Current account holders lose more money to fraud because fraudsters target accounts where transfers can be larger. The bank's risk labels work to a point: high-risk customers do get hit more often. But medium-risk customers cause the most damage in total simply because there are far more of them. The fraud value share is the most important output of Q1: each fraudulent transaction takes more money than a typical legitimate one, so the financial damage is disproportionate to the case count.</p>
+    </div>
+
+    <p class="q-label-accent">Q2 — Fraud Pattern Breakdown</p>
+    <div class="insight-grid mb-lg">
+      <div class="insight-card">
+        <div class="i-label">Most Frequent Pattern</div>
+        <div class="i-value">Geographic Anomaly</div>
+        <div class="i-desc">Geographic anomaly is the most frequent fraud pattern, appearing in the largest share of all flagged transactions. Location-based attacks are the dominant method: a card used in a city or country the account holder has never visited.</div>
+      </div>
+      <div class="insight-card">
+        <div class="i-label">Highest Value per Incident</div>
+        <div class="i-value">Round-Amount Structuring</div>
+        <div class="i-desc">Round-amount structuring carries the highest average and maximum transaction values. The costliest type per incident even if it ranks lower by count: large, exact-figure transfers moved in single transactions.</div>
+      </div>
+      <div class="insight-card">
+        <div class="i-label">Lowest Avg Amount</div>
+        <div class="i-value">Velocity Spike</div>
+        <div class="i-desc">Velocity spike transactions are frequent but carry the lowest average amounts, consistent with fraudsters keeping individual transactions small to avoid auto-blocking rules based on single-transaction thresholds.</div>
+      </div>
+      <div class="insight-card">
+        <div class="i-label">Timing-Based Pattern</div>
+        <div class="i-value">Odd-Hour Large Transactions</div>
+        <div class="i-desc">Odd-hour large transactions (1am to 4am) combine a moderate count with high individual amounts, producing significant total exposure. Account holders are unlikely to notice an alert during these hours.</div>
+      </div>
+    </div>
+
+    <p class="q-label-accent">Q3 — High-Risk / Repeat Offender Accounts</p>
+    <div class="insight-grid mb-lg">
+      <div class="insight-card">
+        <div class="i-label">Key Signal</div>
+        <div class="i-value">Fraud-to-legit ratio &gt; 1.0</div>
+        <div class="i-desc">The Fraud_to_legit_ratio exceeds 1.0 for most repeat offenders, meaning fraudulent transactions are consistently larger than the account holder's normal spending baseline. This is the strongest indicator of external account takeover.</div>
+      </div>
+      <div class="insight-card">
+        <div class="i-label">Primary Breach Channel</div>
+        <div class="i-value">Web &amp; Mobile App</div>
+        <div class="i-desc">Web and Mobile App dominate the channels column for repeat offenders. POS and ATM appearances are minimal, placing digital channels as the primary surface through which compromised accounts continue to be exploited.</div>
+      </div>
+      <div class="insight-card">
+        <div class="i-label">Risk Model Gap</div>
+        <div class="i-value">Low/Medium labels on repeat offenders</div>
+        <div class="i-desc">Several repeat offenders carry Low or Medium risk profile labels in the accounts table. The bank's scoring model failed to identify these accounts as vulnerable before fraud events accumulated, a serious monitoring gap.</div>
+      </div>
+      <div class="insight-card">
+        <div class="i-label">Interpretation</div>
+        <div class="i-value">Account takeover, not owner fraud</div>
+        <div class="i-desc">When the same account appears repeatedly with fraud amounts exceeding the owner's legitimate spending baseline, it signals stolen credentials and a returning attacker: account takeover, not the account owner committing fraud.</div>
+      </div>
+    </div>
+
+    <p class="q-label-accent">Q4 — Merchant &amp; Channel Exposure</p>
+    <div class="insight-grid">
+      <div class="insight-card">
+        <div class="i-label">Highest Risk Merchants</div>
+        <div class="i-value">Unregistered (is_registered = 0)</div>
+        <div class="i-desc">Unregistered merchants record fraud compositions approaching or reaching 100%, meaning essentially every transaction through them is fraudulent. The bank already holds the is_registered flag and can block these destinations with zero false-positive risk.</div>
+      </div>
+      <div class="insight-card">
+        <div class="i-label">Highest Monetary Risk</div>
+        <div class="i-value">Crypto &amp; Wire Transfer Merchants</div>
+        <div class="i-desc">Crypto exchanges and wire transfer merchants carry the highest Fraud_amt values despite lower transaction counts, making them the largest monetary risk per merchant: large amounts in few transactions.</div>
+      </div>
+      <div class="insight-card">
+        <div class="i-label">Riskiest Channel</div>
+        <div class="i-value">Web Channel</div>
+        <div class="i-desc">The Web channel posts the highest Fraud_pct among all channels, confirming it as the primary digital attack surface across the entire transaction portfolio, consistent with Q1 and Q3 findings.</div>
+      </div>
+      <div class="insight-card">
+        <div class="i-label">Fraud Concentration</div>
+        <div class="i-value">Narrow merchant subset</div>
+        <div class="i-desc">High-volume everyday merchants such as grocery stores and utility providers carry near-zero fraud composition. Fraud concentrates in a narrow subset of the merchant base: blocking a handful of categories addresses the majority of fraud without disrupting typical customers.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06. RECOMMENDATIONS -->
+  <section class="proj-section" id="recommendations">
+    <p class="proj-section-label"><span class="line-no">06</span> recommendations</p>
+    <h2>Recommendations</h2>
+    <p>Three recommendations follow, ordered from minimum viable to highest impact. Each is grounded directly in a finding from the four analytical questions.</p>
+    <div class="rec-block">
+      <div class="rec-tag">// action items · ranked by impact</div>
+      <ul class="rec-list">
+
+        <li>
+          <div class="rec-item-head">
+            <span class="rec-rank rec-fair">FAIR</span>
+            <strong>Add OTP confirmation for round-amount transfers above 200,000 NGN</strong>
+          </div>
+          <span class="rec-detail">Q2 shows round-amount structuring carries the highest average and maximum transaction values among all fraud patterns. Requiring a one-time password for any transfer where the amount is an exact multiple of 100,000 NGN adds one friction step that the vast majority of legitimate customers will never encounter. It targets the highest-value fraud type directly and costs little to implement through the existing authentication layer. Limitation: it addresses only one pattern and does nothing about geographic anomalies or odd-hour attacks, leaving most fraud volume untouched.</span>
+        </li>
+
+        <li>
+          <div class="rec-item-head">
+            <span class="rec-rank rec-good">GOOD</span>
+            <strong>Block unregistered merchants and activate geo-velocity rules</strong>
+          </div>
+          <span class="rec-detail">Q4 shows unregistered merchants (is_registered = 0) process fraud at rates approaching 100%. The bank already holds this data and can block these destinations outright with zero false-positive risk to legitimate customers. Alongside this, Q2 ranks geographic anomaly as the single most common fraud pattern. A geo-velocity rule flags any transaction where the current location is physically impossible to reach from the previous location within the elapsed time between them. Both controls are rule-based, require no machine learning, and deploy through the existing transaction monitoring system. Together they address the two highest-frequency fraud patterns identified in the analysis.</span>
+        </li>
+
+        <li>
+          <div class="rec-item-head">
+            <span class="rec-rank rec-best">BEST</span>
+            <strong>Freeze repeat-offender accounts, force re-KYC, and recalibrate risk scoring</strong>
+          </div>
+          <span class="rec-detail">Q3 produces a concrete watchlist of accounts with more than one fraud event and Fraud_to_legit_ratios above 1.0. These accounts need outbound transfers suspended immediately. Affected customers should be contacted directly, passwords reset, and re-KYC completed before access is restored. Beyond the immediate account actions, Q3 reveals that several repeat-offender accounts carried Low or Medium risk labels when fraud occurred. The scoring model failed to predict their vulnerability. The fraud team should feed the characteristics of these accounts back into the scoring criteria: transaction velocity, channel mix, geographic spread, and average amounts relative to balance. This recommendation addresses the root cause. The first two block specific fraud routes; this one closes the monitoring gap that allowed repeat fraud to accumulate undetected.</span>
+        </li>
+
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="section-inner footer-inner">
+    <span>&copy; 2026 Jane Doe</span>
+    <span class="footer-meta">Fraud Detection SQL Analysis | MySQL | Nigerian Banking Scenario</span>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+<script src="fraud-analysis.js"></script>
+</body>
+</html>
