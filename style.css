@@ -174,15 +174,20 @@ span.accent { color: var(--accent); }
   height: 100%;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 24px;
 }
 
 .nav-logo {
   font-family: var(--font-mono);
-  font-size: 1.05rem;
+  font-size: clamp(0.68rem, 3.2vw, 1.05rem);
   font-weight: 700;
   letter-spacing: -0.02em;
-  flex-shrink: 0;
+  flex-shrink: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .nav-links {
@@ -315,6 +320,7 @@ span.accent { color: var(--accent); }
   display: flex;
   flex-direction: column;
   gap: 28px;
+  min-width: 0;
 }
 
 .hero-eyebrow {
@@ -346,7 +352,7 @@ span.accent { color: var(--accent); }
 }
 
 /* Right column: SVG visual wrapper */
-.hero-right { position: relative; }
+.hero-right { position: relative; min-width: 0; }
 
 /* hero-vis: extra padding so chips positioned outside the SVG box
    are not clipped by any parent overflow rule */
@@ -523,6 +529,7 @@ span.accent { color: var(--accent); }
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+  flex-wrap: wrap;
   gap: 12px;
 }
 
@@ -535,7 +542,7 @@ span.accent { color: var(--accent); }
   border-radius: 999px;
   padding: 4px 12px;
   letter-spacing: 0.05em;
-  white-space: nowrap;
+  white-space: normal;
 }
 
 .work-num {
@@ -828,6 +835,7 @@ span.accent { color: var(--accent); }
 }
 .contact-item {
   flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -852,6 +860,8 @@ span.accent { color: var(--accent); }
   color: var(--text);
   font-weight: 500;
   transition: color 0.15s ease;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .contact-bottom {
@@ -913,8 +923,16 @@ span.accent { color: var(--accent); }
   .about-grid   { grid-template-columns: 1fr; gap: 48px; }
   .process-grid { grid-template-columns: repeat(2, 1fr); }
   .skills-cols  { grid-template-columns: repeat(2, 1fr); }
-  /* Contain the SVG on medium screens */
-  .hero-right   { max-width: 540px; }
+  /* Contain the SVG on medium screens — centered, not left-hugging
+     (previously had no margin, leaving a dead gap on the right once
+     the hero stacked to a single column) */
+  .hero-right   { max-width: 540px; margin: 0 auto; width: 100%; }
+}
+
+@media (max-width: 960px) {
+  /* Give project cards room to breathe before the phone breakpoint —
+     2-up cards were cramped with the longer descriptions/tags on tablets */
+  .work-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 860px) {
@@ -972,6 +990,11 @@ span.accent { color: var(--accent); }
   /* Tighten chip positions on small screens */
   .vis-chip    { padding: 8px 12px; }
   .chip-val    { font-size: 0.95rem; }
+  .chip-label  { font-size: 0.58rem; }
+
+  /* Reduce the outset padding/margin trick on mobile so the
+     floating chips can't get clipped at the viewport edge */
+  .hero-vis    { padding: 14px; margin: -14px; }
 
   .process-grid  { grid-template-columns: 1fr; }
   .process-stats { flex-direction: column; align-items: flex-start; gap: 24px; }
@@ -990,4 +1013,27 @@ span.accent { color: var(--accent); }
   .footer-nav     { display: none; }
   .footer-left    { gap: 16px; }
   .contact-bottom { padding: 20px 0; }
+}
+
+/* Extra-small phones (older/budget devices, folded screens, etc.) */
+@media (max-width: 400px) {
+  .container  { padding: 0 16px; }
+  .nav-inner  { padding: 0 16px; }
+  .hero-inner { padding: 88px 16px 48px; }
+
+  .hero-actions   { gap: 10px; }
+  .btn-primary,
+  .btn-outline    { padding: 12px 22px; font-size: 0.76rem; }
+
+  .vis-chip   { padding: 6px 10px; }
+  .chip-val   { font-size: 0.85rem; }
+
+  .work-card-inner { padding: 22px; }
+  .process-card    { padding: 22px 18px; }
+
+  .astat        { padding: 16px 12px; }
+  .astat-val    { font-size: 1.9rem; }
+
+  .process-stats { padding: 24px 20px; }
+  .pstat-val      { font-size: 1.9rem; }
 }
