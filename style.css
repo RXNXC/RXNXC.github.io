@@ -19,7 +19,7 @@
 
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', 'SF Mono', monospace;
-  --container: 1280px;
+  --container: 1400px;
   --gutter:    clamp(20px, 4.5vw, 64px);
   --section-py: clamp(56px, 9vw, 120px);
   --radius:    10px;
@@ -260,8 +260,10 @@ span.accent { color: var(--accent); }
 ══════════════════════════════════════════════════════════════ */
 .hero {
   position: relative;
-  min-height: 100vh;
-  min-height: 100svh; /* accounts for mobile browser toolbars, so content isn't pushed off-screen */
+  /* Full-screen feel on typical screens, but capped so a tall/large
+     monitor doesn't stretch modest content across a huge empty box */
+  min-height: clamp(560px, 92vh, 880px);
+  min-height: clamp(560px, 92svh, 880px);
   /* do NOT use overflow:hidden — it clips absolutely-positioned chips */
   background-image:
     linear-gradient(to right, rgba(35,42,53,0.4) 1px, transparent 1px),
@@ -316,10 +318,14 @@ span.accent { color: var(--accent); }
   gap: 10px;
 }
 
-/* Two-column grid: text left, SVG right */
+/* Two-column grid: text left, SVG right.
+   Text column is capped near its natural reading width instead of
+   stretching to a full 1fr — on wide monitors an even 1fr/1fr split
+   left a large dead gap between the (deliberately narrow) text block
+   and the dashboard visual. The visual column now takes the rest. */
 .hero-body {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(320px, 460px) 1fr;
   gap: clamp(40px, 6vw, 64px);
   align-items: center;
 }
@@ -359,8 +365,11 @@ span.accent { color: var(--accent); }
   align-items: center;
 }
 
-/* Right column: SVG visual wrapper */
-.hero-right { position: relative; min-width: 0; }
+/* Right column: SVG visual wrapper — capped and centered within its
+   track so it can't balloon oversized on very wide monitors, but the
+   grid track itself stays flexible (1fr) so it fills the leftover
+   space rather than leaving a dead gap */
+.hero-right { position: relative; min-width: 0; max-width: 640px; width: 100%; margin: 0 auto; }
 
 /* hero-vis: extra padding so chips positioned outside the SVG box
    are not clipped by any parent overflow rule */
