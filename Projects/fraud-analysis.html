@@ -15,15 +15,15 @@
 <!-- NAV -->
 <nav class="nav">
   <div class="nav-inner">
-    <a href="../index.html" class="nav-logo">jane<span class="accent">_</span>doe<span class="cursor">|</span></a>
+    <a href="../index.html" class="nav-logo">ADEWALE<span class="accent"> </span>AKINWALE DAVID<span class="cursor">|</span></a>
     <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
     <ul class="nav-links">
-      <li><a href="../index.html#about"><span class="line-no">01</span> about</a></li>
-      <li><a href="../index.html#projects"><span class="line-no">02</span> projects</a></li>
-      <li><a href="../index.html#skills"><span class="line-no">03</span> skills</a></li>
-      <li><a href="../index.html#contact"><span class="line-no">04</span> contact</a></li>
+      <li><a href="../index.html#about"><span class="line-no"></span> ABOUT</a></li>
+      <li><a href="../index.html#projects"><span class="line-no"></span> PROJECTS</a></li>
+      <li><a href="../index.html#skills"><span class="line-no"></span> SKILLS</a></li>
+      <li><a href="../index.html#contact"><span class="line-no"></span> CONTACT</a></li>
     </ul>
   </div>
 </nav>
@@ -724,7 +724,7 @@ fraud_amt_per_channel <span class="sql-kw">AS</span> (
 
         <li>
           <div class="rec-item-head">
-            <span class="rec-rank rec-fair">FAIR</span>
+            <span class="rec-rank rec-fair">01</span>
             <strong>Add OTP confirmation for round-amount transfers above 200,000 NGN</strong>
           </div>
           <span class="rec-detail">Q2 shows round-amount structuring carries the highest average and maximum transaction values among all fraud patterns. Requiring a one-time password for any transfer where the amount is an exact multiple of 100,000 NGN adds one friction step that the vast majority of legitimate customers will never encounter. It targets the highest-value fraud type directly and costs little to implement through the existing authentication layer. Limitation: it addresses only one pattern and does nothing about geographic anomalies or odd-hour attacks, leaving most fraud volume untouched.</span>
@@ -732,7 +732,7 @@ fraud_amt_per_channel <span class="sql-kw">AS</span> (
 
         <li>
           <div class="rec-item-head">
-            <span class="rec-rank rec-good">GOOD</span>
+            <span class="rec-rank rec-good">02</span>
             <strong>Block unregistered merchants and activate geo-velocity rules</strong>
           </div>
           <span class="rec-detail">Q4 shows unregistered merchants (is_registered = 0) process fraud at rates approaching 100%. The bank already holds this data and can block these destinations outright with zero false-positive risk to legitimate customers. Alongside this, Q2 ranks geographic anomaly as the single most common fraud pattern. A geo-velocity rule flags any transaction where the current location is physically impossible to reach from the previous location within the elapsed time between them. Both controls are rule-based, require no machine learning, and deploy through the existing transaction monitoring system. Together they address the two highest-frequency fraud patterns identified in the analysis.</span>
@@ -740,7 +740,7 @@ fraud_amt_per_channel <span class="sql-kw">AS</span> (
 
         <li>
           <div class="rec-item-head">
-            <span class="rec-rank rec-best">BEST</span>
+            <span class="rec-rank rec-best">03</span>
             <strong>Freeze repeat-offender accounts, force re-KYC, and recalibrate risk scoring</strong>
           </div>
           <span class="rec-detail">Q3 produces a concrete watchlist of accounts with more than one fraud event and Fraud_to_legit_ratios above 1.0. These accounts need outbound transfers suspended immediately. Affected customers should be contacted directly, passwords reset, and re-KYC completed before access is restored. Beyond the immediate account actions, Q3 reveals that several repeat-offender accounts carried Low or Medium risk labels when fraud occurred. The scoring model failed to predict their vulnerability. The fraud team should feed the characteristics of these accounts back into the scoring criteria: transaction velocity, channel mix, geographic spread, and average amounts relative to balance. This recommendation addresses the root cause. The first two block specific fraud routes; this one closes the monitoring gap that allowed repeat fraud to accumulate undetected.</span>
@@ -754,7 +754,7 @@ fraud_amt_per_channel <span class="sql-kw">AS</span> (
 
 <footer class="footer">
   <div class="section-inner footer-inner">
-    <span>&copy; 2026 Jane Doe</span>
+    <span>&copy; 2026 ADEWALE AKINWALE DAVID</span>
     <span class="footer-meta">Fraud Detection SQL Analysis | MySQL | Nigerian Banking Scenario</span>
   </div>
 </footer>
