@@ -19,7 +19,9 @@
 
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', 'SF Mono', monospace;
-  --container: 1200px;
+  --container: 1280px;
+  --gutter:    clamp(20px, 4.5vw, 64px);
+  --section-py: clamp(56px, 9vw, 120px);
   --radius:    10px;
   --radius-lg: 16px;
   --nav-h:     64px;
@@ -27,7 +29,11 @@
 
 /* ── RESET ──────────────────────────────────────────────────── */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  width: 100%;
+  overflow-x: hidden;
+}
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {
@@ -36,6 +42,7 @@ html { scroll-behavior: smooth; }
   }
 }
 body {
+  width: 100%;
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-sans);
@@ -49,7 +56,7 @@ em  { color: var(--accent); font-style: normal; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
 
 /* ── UTILITIES ──────────────────────────────────────────────── */
-.container { max-width: var(--container); margin: 0 auto; padding: 0 32px; }
+.container { max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter); }
 span.accent { color: var(--accent); }
 
 /* ── SHARED TYPOGRAPHY ──────────────────────────────────────── */
@@ -62,7 +69,7 @@ span.accent { color: var(--accent); }
   text-transform: uppercase;
   margin-bottom: 14px;
 }
-.section-header { margin-bottom: 60px; }
+.section-header { margin-bottom: clamp(36px, 6vw, 60px); }
 .section-title {
   font-size: clamp(2.4rem, 5vw, 3.6rem);
   font-weight: 800;
@@ -170,7 +177,7 @@ span.accent { color: var(--accent); }
 .nav-inner {
   max-width: var(--container);
   margin: 0 auto;
-  padding: 0 32px;
+  padding: 0 var(--gutter);
   height: 100%;
   display: flex;
   align-items: center;
@@ -254,6 +261,7 @@ span.accent { color: var(--accent); }
 .hero {
   position: relative;
   min-height: 100vh;
+  min-height: 100svh; /* accounts for mobile browser toolbars, so content isn't pushed off-screen */
   /* do NOT use overflow:hidden — it clips absolutely-positioned chips */
   background-image:
     linear-gradient(to right, rgba(35,42,53,0.4) 1px, transparent 1px),
@@ -296,10 +304,10 @@ span.accent { color: var(--accent); }
   max-width: var(--container);
   width: 100%;
   margin: 0 auto;
-  padding: var(--nav-h) 32px 80px;
+  padding: calc(var(--nav-h) + clamp(16px, 4vw, 32px)) var(--gutter) clamp(48px, 7vw, 80px);
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: clamp(28px, 4vw, 40px);
 }
 
 .hero-status {
@@ -312,7 +320,7 @@ span.accent { color: var(--accent); }
 .hero-body {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 64px;
+  gap: clamp(40px, 6vw, 64px);
   align-items: center;
 }
 
@@ -478,7 +486,7 @@ span.accent { color: var(--accent); }
    SELECTED WORK
 ══════════════════════════════════════════════════════════════ */
 .section-work {
-  padding: 120px 0;
+  padding: var(--section-py) 0;
   background: var(--bg);
   border-top: 1px solid var(--border);
 }
@@ -601,7 +609,7 @@ span.accent { color: var(--accent); }
    PROCESS
 ══════════════════════════════════════════════════════════════ */
 .section-process {
-  padding: 120px 0;
+  padding: var(--section-py) 0;
   background: var(--bg-alt);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
@@ -675,14 +683,14 @@ span.accent { color: var(--accent); }
    ABOUT
 ══════════════════════════════════════════════════════════════ */
 .section-about {
-  padding: 120px 0;
+  padding: var(--section-py) 0;
   background: var(--bg);
 }
 
 .about-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 80px;
+  gap: clamp(40px, 6vw, 80px);
   align-items: start;
 }
 
@@ -776,7 +784,7 @@ span.accent { color: var(--accent); }
    SKILLS
 ══════════════════════════════════════════════════════════════ */
 .section-skills {
-  padding: 120px 0;
+  padding: var(--section-py) 0;
   background: var(--bg-alt);
   border-top: 1px solid var(--border);
 }
@@ -801,7 +809,7 @@ span.accent { color: var(--accent); }
    CONTACT + FOOTER
 ══════════════════════════════════════════════════════════════ */
 .section-contact {
-  padding: 120px 0 0;
+  padding: var(--section-py) 0 0;
   background: var(--bg);
   border-top: 1px solid var(--border);
 }
@@ -810,7 +818,7 @@ span.accent { color: var(--accent); }
   display: flex;
   flex-direction: column;
   gap: 28px;
-  padding-bottom: 80px;
+  padding-bottom: clamp(48px, 7vw, 80px);
 }
 
 .contact-title {
@@ -980,10 +988,6 @@ span.accent { color: var(--accent); }
 }
 
 @media (max-width: 640px) {
-  .container   { padding: 0 20px; }
-  .nav-inner   { padding: 0 20px; }
-
-  .hero-inner  { padding: 96px 20px 60px; gap: 32px; }
   .hero-title  { font-size: clamp(2.4rem, 10vw, 3.2rem); }
   .hero-body   { gap: 40px; }
 
@@ -1017,10 +1021,6 @@ span.accent { color: var(--accent); }
 
 /* Extra-small phones (older/budget devices, folded screens, etc.) */
 @media (max-width: 400px) {
-  .container  { padding: 0 16px; }
-  .nav-inner  { padding: 0 16px; }
-  .hero-inner { padding: 88px 16px 48px; }
-
   .hero-actions   { gap: 10px; }
   .btn-primary,
   .btn-outline    { padding: 12px 22px; font-size: 0.76rem; }
